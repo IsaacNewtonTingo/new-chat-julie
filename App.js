@@ -18,7 +18,6 @@ import HomeStack from './src/navigators/home-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthNav from './src/navigators/auth-nav';
 import ChooseSubscription from './src/screens/subscription/choose-subscription';
-import SplashScreen from 'react-native-splash-screen';
 
 LogBox.ignoreAllLogs();
 
@@ -51,8 +50,6 @@ export default function App() {
   useEffect(() => {
     checkStoredUserData();
     checkChatTheme();
-
-    SplashScreen.hide();
   }, []);
 
   async function checkChatTheme() {
