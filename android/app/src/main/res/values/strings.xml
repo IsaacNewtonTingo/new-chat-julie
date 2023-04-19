@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">chatjulie</string>
+    <string name="facebook_app_id">895464781680938</string>
+    <string name="facebook_client_token">f09f54e2f055704d2e862c1ea2cdc9fa</string>
 </resources>

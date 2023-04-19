@@ -439,25 +439,41 @@ export default function Conversation({route, navigation}) {
         .then(response => {
           setAwaitingMessage(false);
 
-          const aiResponse = {
-            messageID: responseId,
-            content: textResponse ? response.data.data : null,
-            image: textResponse ? null : response.data.data,
-            createdAt: new Date(),
-            user: `${process.env.CHAT_JULIE_ID}`,
-          };
+          if (response.data.status == 'Success') {
+            const aiResponse = {
+              messageID: responseId,
+              content: textResponse ? response.data.data : null,
+              image: textResponse ? null : response.data.data,
+              createdAt: new Date(),
+              user: `${process.env.CHAT_JULIE_ID}`,
+            };
 
-          const aiResToSend = {
-            role: 'assistant',
-            content: response.data.data ? response.data.data : null,
-          };
+            const aiResToSend = {
+              role: 'assistant',
+              content: response.data.data ? response.data.data : null,
+            };
 
-          setMessages(prevState => [...prevState, aiResponse]);
-          setMessagesToSend(
-            textResponse ? prevState => [...prevState, aiResToSend] : message,
-          );
+            setMessages(prevState => [...prevState, aiResponse]);
+            setMessagesToSend(
+              textResponse ? prevState => [...prevState, aiResToSend] : message,
+            );
+          } else if (response.data.accountStatus == 0) {
+            navigation.navigate('ChooseSubscription', {data: null});
+            showMyToast({
+              status: 'info',
+              title: 'Account limit alert',
+              description:
+                'You have reached the limit of free messages you can send. Please join premium to access unlimited functionalities',
+            });
+          } else {
+            showMyToast({
+              status: 'error',
+              title: 'Failed',
+              description: 'An error occured while processing your request',
+            });
+          }
+
           setMessage('');
-
           flatListRef.current.scrollToEnd();
         });
     } catch (error) {

@@ -4,6 +4,8 @@ export default {
   gray: '#a6a6a6',
   black: 'black',
   orange: '#ED8B00',
+  purple: '#9747FF',
+  darkPurple: '#232337',
 
   darkGray: '#262626',
 

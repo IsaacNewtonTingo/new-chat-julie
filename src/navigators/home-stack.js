@@ -9,6 +9,7 @@ import Conversation from '../screens/dashboard/conversation';
 import PrimaryText from '../components/texts/primary-text';
 import {TouchableOpacity} from 'react-native';
 import {CredentialsContext} from '../context/credentials-context';
+import ChooseSubscription from '../screens/subscription/choose-subscription';
 
 const Stack = createNativeStackNavigator();
 
@@ -67,6 +68,15 @@ export default function HomeStack() {
             })}
             component={Conversation}
             name="Conversation"
+          />
+
+          <Stack.Screen
+            options={{
+              headerTransparent: true,
+              headerTitle: '',
+            }}
+            component={ChooseSubscription}
+            name="ChooseSubscription"
           />
         </Stack.Navigator>
       )}

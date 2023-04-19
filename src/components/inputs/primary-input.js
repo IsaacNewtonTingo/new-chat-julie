@@ -12,9 +12,12 @@ export default function PrimaryInput(props) {
     onBlur,
     handleBlur,
     InputRightElement,
+    InputLeftElement,
+    editable,
   } = props;
   return (
     <Input
+      editable={editable}
       borderRadius={14}
       marginY={2}
       height={50}
@@ -27,6 +30,8 @@ export default function PrimaryInput(props) {
       onBlur={onBlur}
       handleBlur={handleBlur}
       InputRightElement={InputRightElement}
+      InputLeftElement={InputLeftElement}
+      style={[styles.textInput, style]}
     />
   );
 }

@@ -10,7 +10,7 @@ export default function PrimaryButton(props) {
 
   return (
     <TouchableOpacity
-      style={[styles.button, style, ,]}
+      style={[styles.button, style]}
       disabled={disabled}
       onPress={onPress}>
       {submitting ? (

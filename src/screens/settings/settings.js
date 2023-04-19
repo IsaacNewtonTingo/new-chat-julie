@@ -1,24 +1,53 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, Text, View} from 'react-native';
 import React, {useContext} from 'react';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import globalStyles from '../../assets/styles/global-styles';
 import PrimaryText from '../../components/texts/primary-text';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {HStack} from 'native-base';
 
 import Entypo from 'react-native-vector-icons/Entypo';
 import colors from '../../assets/colors/colors';
-import SecondaryText from '../../components/texts/secondary-text';
-import PrimaryButton from '../../components/buttons/primary-button';
 
 import {CredentialsContext} from '../../context/credentials-context';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import {showMyToast} from '../../functions/show-toast';
-import SecondaryButton from '../../components/buttons/secondary-button';
+
+import SettingsList from '../../components/lists/settings-list';
+
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export default function Settings({navigation}) {
   const {storedCredentials, setStoredCredentials} =
     useContext(CredentialsContext);
+
+  const paymentSettings = [
+    {
+      title: 'Premium',
+      iconName: 'crown',
+      iconType: 'Foundation',
+      route: 'Premium',
+    },
+    {
+      title: 'Transactions',
+      iconName: 'payments',
+      iconType: 'MaterialIcons',
+      route: 'Transactions',
+    },
+  ];
+
+  const setSettings = [
+    {
+      title: 'Notification Settings',
+      iconName: 'notifications-circle-outline',
+      iconType: 'Ionicons',
+      route: 'Notifications',
+    },
+    {
+      title: 'Theme Settings',
+      iconName: 'color-palette-outline',
+      iconType: 'Ionicons',
+      route: 'ThemeSettings',
+    },
+  ];
 
   async function handleLogout() {
     await EncryptedStorage.removeItem('userData')
@@ -35,30 +64,55 @@ export default function Settings({navigation}) {
       });
   }
   return (
-    <KeyboardAwareScrollView style={globalStyles.container}>
-      {/* <PrimaryText style={{textAlign: 'left', marginVertical: 20}}>
-        My profile
-      </PrimaryText> */}
-
-      {/* <TouchableOpacity style={styles.userDetailsContainer}>
+    <View style={[globalStyles.container, {position: 'relative'}]}>
+      <TouchableOpacity style={styles.userDetailsContainer}>
         <HStack alignItems="center">
           <View style={styles.imageContainer}>
-            <SecondaryText style={{fontSize: 20}}>J</SecondaryText>
+            <Image
+              style={styles.profileIMG}
+              source={{
+                uri: 'https://1fid.com/wp-content/uploads/2022/06/no-profile-picture-4-1024x1024.jpg',
+              }}
+            />
+            {/* <SecondaryText style={{fontSize: 20}}>J</SecondaryText> */}
           </View>
 
           <View style={styles.right}>
             <PrimaryText style={{textAlign: 'left'}}>
               James St. Patrick
             </PrimaryText>
-            <PrimaryText style={{textAlign: 'left'}}>Designer</PrimaryText>
+            <PrimaryText style={{textAlign: 'left', color: colors.gray}}>
+              View profile
+            </PrimaryText>
           </View>
         </HStack>
+      </TouchableOpacity>
 
-        <Entypo name="edit" color={colors.white} size={20} />
-      </TouchableOpacity> */}
+      <View style={{marginTop: 20}}>
+        {paymentSettings.map((setting, i) => (
+          <SettingsList key={i} setting={setting} />
+        ))}
+      </View>
 
-      <SecondaryButton onPress={handleLogout} title="Signout" />
-    </KeyboardAwareScrollView>
+      <View style={{marginTop: 20}}>
+        {setSettings.map((setting, i) => (
+          <SettingsList key={i} setting={setting} />
+        ))}
+      </View>
+
+      <TouchableOpacity onPress={handleLogout} style={styles.logoutBTN}>
+        <HStack space={5}>
+          <Entypo name="log-out" size={20} color={colors.gray} />
+          <PrimaryText>Signout</PrimaryText>
+        </HStack>
+
+        <MaterialIcons
+          name="keyboard-arrow-right"
+          size={20}
+          color={colors.gray}
+        />
+      </TouchableOpacity>
+    </View>
   );
 }
 
@@ -83,5 +137,19 @@ const styles = StyleSheet.create({
   },
   right: {
     marginLeft: 20,
+  },
+  profileIMG: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 40,
+  },
+  logoutBTN: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: colors.black,
+    padding: 10,
+    marginTop: 20,
+    height: 60,
   },
 });

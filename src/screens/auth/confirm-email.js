@@ -14,6 +14,7 @@ import {showMyToast} from '../../functions/show-toast';
 import SecondaryText from '../../components/texts/secondary-text';
 import {TouchableOpacity} from 'react-native';
 import LoadingScreen from '../../components/loading/page-loading';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const {width} = Dimensions.get('window');
 const B = props => (
@@ -96,7 +97,9 @@ export default function ConfirmEmail({route, navigation}) {
   }
 
   return (
-    <Pressable style={styles.container} onPress={Keyboard.dismiss}>
+    <KeyboardAwareScrollView
+      keyboardShouldPersistTaps="always"
+      style={styles.container}>
       <LoadingScreen isOpen={submitting} />
       <View style={styles.miniContainer}>
         <Image
@@ -150,7 +153,7 @@ export default function ConfirmEmail({route, navigation}) {
           </ButtonText>
         </ButtonContainer> */}
       </View>
-    </Pressable>
+    </KeyboardAwareScrollView>
   );
 }
 
@@ -158,7 +161,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.dark,
-    alignItems: 'center',
     padding: 10,
   },
   miniContainer: {

@@ -7,6 +7,7 @@ import colors from '../assets/colors/colors';
 import PrimaryText from '../components/texts/primary-text';
 
 import {ChatDataContext} from '../context/chat-data';
+import ChooseSubscription from '../screens/subscription/choose-subscription';
 
 const Stack = createNativeStackNavigator();
 
@@ -50,33 +51,6 @@ export default function ChatNav() {
         headerTitleAlign: 'center',
         headerTintColor: colors.white,
       }}>
-      {/* <Stack.Screen
-        options={({route}) => ({
-          headerTitle: 'Chat Julie',
-          headerStyle: {
-            backgroundColor:
-              chatTheme == colors.theme1
-                ? colors.darkOrange
-                : chatTheme == colors.theme2
-                ? colors.darkBlue
-                : colors.darkRed,
-          },
-        })}
-        component={Chat}
-        name="Chat"
-      /> */}
-
-      {/* <Stack.Screen
-        options={({route}) => ({
-          headerTitle: '',
-          headerStyle: {
-            backgroundColor: colors.black,
-          },
-        })}
-        component={Chat}
-        name="Chat"
-      /> */}
-
       <Stack.Screen
         options={({route}) => ({
           headerTitle: () => (
@@ -101,6 +75,15 @@ export default function ChatNav() {
         })}
         component={Conversation}
         name="Conversation"
+      />
+
+      <Stack.Screen
+        options={{
+          headerTransparent: true,
+          headerTitle: '',
+        }}
+        component={ChooseSubscription}
+        name="ChooseSubscription"
       />
     </Stack.Navigator>
   );

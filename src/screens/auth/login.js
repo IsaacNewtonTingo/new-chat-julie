@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import CheckBox from '@react-native-community/checkbox';
 
@@ -25,24 +25,40 @@ import {HStack, Flex, Divider} from 'native-base';
 import colors from '../../assets/colors/colors';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import EncryptedStorage from 'react-native-encrypted-storage';
 
-import {CredentialsContext} from '../../context/credentials-context';
 import axios from 'axios';
 import {Dimensions} from 'react-native';
 
 import {SocialIcon} from 'react-native-elements';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
+import {CredentialsContext} from '../../context/credentials-context';
 const {width} = Dimensions.get('window');
+
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+
+import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
+import LoadingScreen from '../../components/loading/page-loading';
 
 export default function Login({navigation, route}) {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [showPass, setShowPass] = useState(false);
-
-  const [submitting, setSubmitting] = useState(false);
-
   const {storedCredentials, setStoredCredentials} =
     useContext(CredentialsContext);
+
+  const [loggedIn, setloggedIn] = useState(false);
+  const [userInfo, setuserInfo] = useState([]);
+
+  const [userName, setUserName] = useState('');
+  const [token, setToken] = useState('');
+  const [profilePic, setProfilePic] = useState('');
+
+  const [submitting, setSubmitting] = useState(false);
+  const [processingGoogleLogin, setProcessingGoogleLogin] = useState(false);
 
   const loginValidationSchema = yup.object().shape({
     email: yup
@@ -64,8 +80,14 @@ export default function Login({navigation, route}) {
       );
 
       if (response.data.status == 'Success') {
+        setSubmitting(false);
         const {data} = response.data;
-        storeCredentials({data});
+
+        if (data.premium == 0) {
+          navigation.navigate('AuthSubscription', {data});
+        } else {
+          storeCredentials({data});
+        }
       } else {
         setSubmitting(false);
 
@@ -85,10 +107,10 @@ export default function Login({navigation, route}) {
     }
   }
 
-  async function storeCredentials(values) {
-    await EncryptedStorage.setItem('userData', JSON.stringify(values))
+  async function storeCredentials(data) {
+    await EncryptedStorage.setItem('userData', JSON.stringify(data))
       .then(() => {
-        setStoredCredentials(values);
+        setStoredCredentials(data);
         setSubmitting(false);
       })
       .catch(err => {
@@ -101,9 +123,86 @@ export default function Login({navigation, route}) {
       });
   }
 
-  async function loginWithFacebook() {}
+  async function loginWithGoogle() {
+    setProcessingGoogleLogin(true);
+    GoogleSignin.configure({
+      androidClientId: process.env.ANDROID_CLIENT_ID,
+      webClientId: process.env.WEB_CLIENT_ID,
+      offlineAccess: true,
+    });
+    await GoogleSignin.hasPlayServices()
+      .then(async hasPlayService => {
+        setProcessingGoogleLogin(false);
+        if (hasPlayService) {
+          await GoogleSignin.signIn()
+            .then(async userInfo => {
+              console.log(userInfo);
 
-  async function loginWithGoogle() {}
+              await axios
+                .get(`${process.env.API_ENDPOINT}/user/google-login`, {
+                  given_name: userInfo.user.givenName,
+                  family_name: userInfo.user.familyName,
+                  picture: userInfo.user.photo,
+                  email: userInfo.user.email,
+                  idToken: userInfo.user.idToken,
+                })
+                .then(response => {
+                  console.log(response.data);
+                  if (response.data.status == 'Success') {
+                    const {data} = response.data;
+
+                    if (data.premium == 0) {
+                      navigation.navigate('AuthSubscription', {data});
+                    } else {
+                      storeCredentials({data});
+                    }
+                  } else {
+                    showMyToast({
+                      status: 'error',
+                      title: 'Failed',
+                      description: response.data.message,
+                    });
+                  }
+                })
+                .catch(err => {
+                  console.log(err);
+                  showMyToast({
+                    status: 'error',
+                    title: 'Failed',
+                    description: 'An error occured while logging in',
+                  });
+                });
+            })
+            .catch(e => {
+              console.log('ERROR IS: ' + JSON.stringify(e));
+            });
+        }
+      })
+      .catch(e => {
+        console.log('ERROR IS: ' + JSON.stringify(e));
+        setProcessingGoogleLogin(false);
+      });
+  }
+
+  async function loginWithFacebook() {
+    await LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+      async function (result) {
+        if (result.isCancelled) {
+          console.log('==> Login cancelled');
+        } else {
+          const data = await AccessToken.getCurrentAccessToken();
+          console.log(data);
+          console.log(
+            '==> Login success with permissions: ' +
+              result.grantedPermissions.toString(),
+          );
+        }
+      },
+      function (error) {
+        console.log('==> Login fail with error: ' + error);
+      },
+    );
+  }
 
   return (
     <KeyboardAwareScrollView
@@ -240,11 +339,13 @@ export default function Login({navigation, route}) {
                 type="facebook"
               />
 
-              <SocialIcon
-                onPress={loginWithGoogle}
-                style={styles.socialBTNs}
-                type="google"
-              />
+              <TouchableOpacity>
+                <SocialIcon
+                  onPress={loginWithGoogle}
+                  style={styles.socialBTNs}
+                  type="google"
+                />
+              </TouchableOpacity>
             </HStack>
 
             <HStack marginTop={5} alignItems="center" justifyContent="center">
@@ -259,6 +360,10 @@ export default function Login({navigation, route}) {
           </View>
         )}
       </Formik>
+
+      {processingGoogleLogin && (
+        <LoadingScreen isOpen={processingGoogleLogin} />
+      )}
     </KeyboardAwareScrollView>
   );
 }

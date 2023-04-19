@@ -117,7 +117,7 @@ export default function Welcome({navigation}) {
   };
 
   return (
-    <View style={[globalStyles.container, {}]}>
+    <View style={[globalStyles.container, {paddingBottom: 20}]}>
       <AppIntroSlider
         data={slides}
         onDone={onDone}

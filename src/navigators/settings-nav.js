@@ -20,6 +20,7 @@ export default function SettingsNav() {
       <Stack.Screen
         options={{
           headerTitle: 'Settings',
+          headerShown: false,
         }}
         component={Settings}
         name="Settings"

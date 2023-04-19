@@ -9,6 +9,8 @@ import {CredentialsContext} from '../context/credentials-context';
 import ConfirmEmail from '../screens/auth/confirm-email';
 import colors from '../assets/colors/colors';
 import ResetPassword from '../screens/auth/reset-password';
+import ChooseSubscription from '../screens/subscription/choose-subscription';
+import AuthSubscription from '../screens/subscription/auth-subscription';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +48,14 @@ export default function AuthNav() {
             }}
             component={Signup}
             name="Signup"
+          />
+
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            component={AuthSubscription}
+            name="AuthSubscription"
           />
 
           <Stack.Screen
