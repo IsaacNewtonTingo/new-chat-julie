@@ -1,5 +1,5 @@
 import {Image, StyleSheet, TouchableOpacity, Text, View} from 'react-native';
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import globalStyles from '../../assets/styles/global-styles';
 import PrimaryText from '../../components/texts/primary-text';
 import {HStack} from 'native-base';
@@ -14,10 +14,16 @@ import {showMyToast} from '../../functions/show-toast';
 import SettingsList from '../../components/lists/settings-list';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MyToast from '../../components/toasts/my-toast';
+import axios from 'axios';
 
 export default function Settings({navigation}) {
   const {storedCredentials, setStoredCredentials} =
     useContext(CredentialsContext);
+
+  const userID = storedCredentials.data;
+
+  const [user, setUser] = useState({});
 
   const paymentSettings = [
     {
@@ -49,6 +55,34 @@ export default function Settings({navigation}) {
     },
   ];
 
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  async function getUserData() {
+    try {
+      const response = await axios.get(
+        `${process.env.API_ENDPOINT}/user/get-user/${userID}`,
+      );
+      if (response.data.status == 'success') {
+        setUser(response.data.data);
+      } else {
+        showMyToast({
+          status: 'error',
+          title: 'Failed',
+          description: response.data.message,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      showMyToast({
+        status: 'error',
+        title: 'Failed',
+        description: 'An error occured while gettings user data',
+      });
+    }
+  }
+
   async function handleLogout() {
     await EncryptedStorage.removeItem('userData')
       .then(() => {
@@ -71,7 +105,9 @@ export default function Settings({navigation}) {
             <Image
               style={styles.profileIMG}
               source={{
-                uri: 'https://1fid.com/wp-content/uploads/2022/06/no-profile-picture-4-1024x1024.jpg',
+                uri: user.avatar
+                  ? user.avatar
+                  : 'https://1fid.com/wp-content/uploads/2022/06/no-profile-picture-4-1024x1024.jpg',
               }}
             />
             {/* <SecondaryText style={{fontSize: 20}}>J</SecondaryText> */}
@@ -79,7 +115,7 @@ export default function Settings({navigation}) {
 
           <View style={styles.right}>
             <PrimaryText style={{textAlign: 'left'}}>
-              James St. Patrick
+              {user.firstName} {user.lastName}
             </PrimaryText>
             <PrimaryText style={{textAlign: 'left', color: colors.gray}}>
               View profile
