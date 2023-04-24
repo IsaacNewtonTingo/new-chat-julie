@@ -29,8 +29,11 @@ export default function SettingsNav() {
 
       <Stack.Screen
         options={{
-          headerTitle: 'Profile',
-          headerShown: false,
+          headerTitle: '',
+          headerTransparent: true,
+          headerStyle: {
+            backgroundColor: 'transparent',
+          },
         }}
         component={Profile}
         name="Profile"
