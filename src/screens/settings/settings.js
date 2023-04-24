@@ -1,5 +1,5 @@
 import {Image, StyleSheet, TouchableOpacity, Text, View} from 'react-native';
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import globalStyles from '../../assets/styles/global-styles';
 import PrimaryText from '../../components/texts/primary-text';
 import {HStack} from 'native-base';
@@ -21,7 +21,8 @@ export default function Settings({navigation}) {
   const {storedCredentials, setStoredCredentials} =
     useContext(CredentialsContext);
 
-  const userID = storedCredentials.data;
+  const userID = storedCredentials.data.userID;
+  const token = storedCredentials.data.token;
 
   const [user, setUser] = useState({});
 
@@ -47,11 +48,19 @@ export default function Settings({navigation}) {
       iconType: 'Ionicons',
       route: 'Notifications',
     },
+
     {
       title: 'Theme Settings',
       iconName: 'color-palette-outline',
       iconType: 'Ionicons',
       route: 'ThemeSettings',
+    },
+
+    {
+      title: 'Account',
+      iconName: 'notifications-circle-outline',
+      iconType: 'Ionicons',
+      route: 'Notifications',
     },
   ];
 
@@ -63,8 +72,10 @@ export default function Settings({navigation}) {
     try {
       const response = await axios.get(
         `${process.env.API_ENDPOINT}/user/get-user/${userID}`,
+        {headers: {'auth-token': token}},
       );
-      if (response.data.status == 'success') {
+
+      if (response.data.status == 'Success') {
         setUser(response.data.data);
       } else {
         showMyToast({
@@ -99,7 +110,9 @@ export default function Settings({navigation}) {
   }
   return (
     <View style={[globalStyles.container, {position: 'relative'}]}>
-      <TouchableOpacity style={styles.userDetailsContainer}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Profile', {user})}
+        style={styles.userDetailsContainer}>
         <HStack alignItems="center">
           <View style={styles.imageContainer}>
             <Image

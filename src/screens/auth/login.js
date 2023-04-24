@@ -132,7 +132,6 @@ export default function Login({navigation, route}) {
     });
     await GoogleSignin.hasPlayServices()
       .then(async hasPlayService => {
-        setProcessingGoogleLogin(false);
         if (hasPlayService) {
           await GoogleSignin.signIn()
             .then(async userInfo => {
@@ -148,6 +147,8 @@ export default function Login({navigation, route}) {
                 })
                 .then(response => {
                   console.log(response.data);
+                  setProcessingGoogleLogin(false);
+
                   if (response.data.status == 'Success') {
                     const {data} = response.data;
 
