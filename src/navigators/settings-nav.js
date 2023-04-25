@@ -5,6 +5,7 @@ import Discover from '../screens/dashboard/discover';
 import Settings from '../screens/settings/settings';
 import colors from '../assets/colors/colors';
 import Profile from '../screens/settings/profile';
+import ConfirmEmail from '../screens/auth/confirm-email';
 
 const Stack = createNativeStackNavigator();
 

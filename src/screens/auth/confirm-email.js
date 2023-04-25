@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Dimensions, View, Pressable, Keyboard} from 'react-native';
 import OTPInput from '../../components/otp/otp';
-import globalStyles, {
-  ButtonContainer,
-  ButtonText,
-} from '../../assets/styles/global-styles';
+
 import colors from '../../assets/colors/colors';
 import PrimaryText from '../../components/texts/primary-text';
 import {Image} from 'react-native';

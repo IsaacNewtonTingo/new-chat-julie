@@ -1,5 +1,5 @@
 import {Image, StyleSheet, Dimensions, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import globalStyles from '../../assets/styles/global-styles';
 import colors from '../../assets/colors/colors';
@@ -7,7 +7,6 @@ import PrimaryText from '../../components/texts/primary-text';
 import PrimaryInput from '../../components/inputs/primary-input';
 import PrimaryButton from '../../components/buttons/primary-button';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
@@ -15,6 +14,11 @@ import Feather from 'react-native-vector-icons/Feather';
 import {Icon} from 'native-base';
 import {ImageBackground} from 'react-native';
 import {TouchableOpacity} from 'react-native';
+import axios from 'axios';
+
+import {CredentialsContext} from '../../context/credentials-context';
+import {showMyToast} from '../../functions/show-toast';
+import OtpModal from '../../components/modal/otp-modal';
 
 const {width} = Dimensions.get('window');
 export default function Profile({navigation, route}) {
@@ -28,7 +32,91 @@ export default function Profile({navigation, route}) {
     oldPassword: '',
     newPassword: '',
     confirmNewPassword: '',
+
+    otp: '',
   });
+
+  const [otpModal, setOtpModal] = useState(true);
+  const [processing, setProcessing] = useState(false);
+
+  const {storedCredentials} = useContext(CredentialsContext);
+
+  const userID = storedCredentials.data.userID;
+  const token = storedCredentials.data.token;
+
+  const headers = {
+    'auth-token': token,
+  };
+
+  async function updateProfileRequest() {
+    setProcessing(true);
+    await axios
+      .patch(
+        `${process.env.API_ENDPOINT}/user/update-profile-request/${userID}`,
+        data,
+        {headers},
+      )
+      .then(async response => {
+        setProcessing(false);
+
+        if (response.data.status == 'Complete') {
+          //profile was updated successfully. Email didn't change
+          showMyToast({
+            status: 'success',
+            title: 'Success',
+            description: response.data.message,
+          });
+        } else if (response.data.status == 'Success') {
+          //A new email was input
+          //otp was sent and you need to call a second route
+          setOtpModal(true);
+        } else {
+          showMyToast({
+            status: 'error',
+            title: 'Failed',
+            description: response.data.message,
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        setProcessing(false);
+        showMyToast({
+          status: 'error',
+          title: 'Failed',
+          description: 'An error occured while updating profile',
+        });
+      });
+  }
+
+  async function updateProfile() {
+    setProcessing(true);
+    await axios
+      .patch(
+        `${process.env.API_ENDPOINT}/user/update-profile/${userID}`,
+        data,
+        {headers},
+      )
+      .then(response => {
+        setProcessing(false);
+
+        if (response.data.status == 'Success') {
+          showMyToast({
+            status: 'success',
+            title: 'Success',
+            description: response.data.message,
+          });
+        } else {
+          setProcessing(false);
+
+          showMyToast({
+            status: 'error',
+            title: 'Failed',
+            description: response.data.message,
+          });
+        }
+      });
+  }
   return (
     <KeyboardAwareScrollView style={globalStyles.container}>
       <ImageBackground
@@ -181,8 +269,25 @@ export default function Profile({navigation, route}) {
           }
         />
 
-        <PrimaryButton title="Update password" style={{marginTop: 20}} />
+        <PrimaryButton
+          onPress={updateProfileRequest}
+          disabled={processing}
+          submitting={processing}
+          title="Update password"
+          style={{marginTop: 20}}
+        />
       </View>
+
+      {otpModal && (
+        <OtpModal
+          otp={data.otp}
+          email={data.email}
+          updateProfile={updateProfile}
+          processing={processing}
+          disabled={processing}
+          submitting={processing}
+        />
+      )}
     </KeyboardAwareScrollView>
   );
 }
