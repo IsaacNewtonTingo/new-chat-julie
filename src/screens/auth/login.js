@@ -135,16 +135,18 @@ export default function Login({navigation, route}) {
         if (hasPlayService) {
           await GoogleSignin.signIn()
             .then(async userInfo => {
-              console.log(userInfo);
+              const data = {
+                given_name: userInfo.user.givenName,
+                family_name: userInfo.user.familyName,
+                picture: userInfo.user.photo,
+                email: userInfo.user.email,
+                idToken: userInfo.user.idToken,
+              };
+
+              console.log(data);
 
               await axios
-                .get(`${process.env.API_ENDPOINT}/user/google-login`, {
-                  given_name: userInfo.user.givenName,
-                  family_name: userInfo.user.familyName,
-                  picture: userInfo.user.photo,
-                  email: userInfo.user.email,
-                  idToken: userInfo.user.idToken,
-                })
+                .post(`${process.env.API_ENDPOINT}/user/google-login`, data)
                 .then(response => {
                   console.log(response.data);
                   setProcessingGoogleLogin(false);
@@ -186,23 +188,29 @@ export default function Login({navigation, route}) {
   }
 
   async function loginWithFacebook() {
-    await LoginManager.logInWithPermissions(['public_profile', 'email']).then(
-      async function (result) {
-        if (result.isCancelled) {
-          console.log('==> Login cancelled');
-        } else {
-          const data = await AccessToken.getCurrentAccessToken();
-          console.log(data);
-          console.log(
-            '==> Login success with permissions: ' +
-              result.grantedPermissions.toString(),
-          );
-        }
-      },
-      function (error) {
-        console.log('==> Login fail with error: ' + error);
-      },
-    );
+    // await LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+    //   async function (result) {
+    //     if (result.isCancelled) {
+    //       console.log('==> Login cancelled');
+    //     } else {
+    //       const data = await AccessToken.getCurrentAccessToken();
+    //       console.log(data);
+    //       console.log(
+    //         '==> Login success with permissions: ' +
+    //           result.grantedPermissions.toString(),
+    //       );
+    //     }
+    //   },
+    //   function (error) {
+    //     console.log('==> Login fail with error: ' + error);
+    //   },
+    // );
+
+    showMyToast({
+      status: 'info',
+      title: 'Info',
+      description: 'Comming soon',
+    });
   }
 
   return (

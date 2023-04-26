@@ -39,6 +39,15 @@ export default function SettingsNav() {
         component={Profile}
         name="Profile"
       />
+
+      <Stack.Screen
+        options={{
+          headerTitle: 'Verify email',
+          // headerShown: false,
+        }}
+        component={ConfirmEmail}
+        name="ConfirmEmail"
+      />
     </Stack.Navigator>
   );
 }

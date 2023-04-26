@@ -60,7 +60,13 @@ export default function Signup({navigation}) {
           if (response.data.status == 'Success') {
             console.log(response.data);
 
-            navigation.navigate('ConfirmEmail', {values});
+            navigation.navigate('ConfirmEmail', {
+              values: {
+                ...values,
+                userID: null,
+                headers: null,
+              },
+            });
 
             showMyToast({
               status: 'success',

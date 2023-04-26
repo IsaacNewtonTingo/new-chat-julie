@@ -111,7 +111,7 @@ export default function Settings({navigation}) {
   return (
     <View style={[globalStyles.container, {position: 'relative'}]}>
       <TouchableOpacity
-        onPress={() => navigation.navigate('Profile', {user})}
+        // onPress={() => navigation.navigate('Profile', {user})}
         style={styles.userDetailsContainer}>
         <HStack alignItems="center">
           <View style={styles.imageContainer}>

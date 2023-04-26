@@ -17,17 +17,24 @@ const B = props => (
 
 export default function OtpModal(props) {
   const [isPinReady, setIsPinReady] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
   const maximumCodeLength = 4;
 
-  const {email, otp, setOTP, updateProfile} = props;
+  const {email, otp, setOTP, setOtpModal, submitting, updateProfile} = props;
 
   return (
     <Modal
-      style={{backgroundColor: 'rgba(0,0,0,0.7)'}}
+      style={{backgroundColor: 'rgba(0,0,0,0.8)'}}
       width="100%"
       isOpen={true}>
       <View style={styles.miniContainer}>
+        <View style={styles.closeContainer}>
+          <TouchableOpacity onPress={() => setOtpModal(false)}>
+            <PrimaryText style={{fontSize: 25, color: colors.gray}}>
+              X
+            </PrimaryText>
+          </TouchableOpacity>
+        </View>
+
         <PrimaryText style={{marginVertical: 40, fontSize: 20}}>
           An OTP has been sent to <B> "{email}"</B>.
         </PrimaryText>
@@ -73,7 +80,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   miniContainer: {
-    backgroundColor: colors.black,
+    backgroundColor: colors.dark,
     padding: 20,
     width: width - 20,
     borderRadius: 14,
@@ -82,5 +89,10 @@ const styles = StyleSheet.create({
     width: width / 2.5,
     height: width / 2.5,
     alignSelf: 'center',
+  },
+  closeContainer: {
+    position: 'absolute',
+    right: 20,
+    top: 20,
   },
 });

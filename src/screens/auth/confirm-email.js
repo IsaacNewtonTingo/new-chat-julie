@@ -19,7 +19,8 @@ const B = props => (
 );
 
 export default function ConfirmEmail({route, navigation}) {
-  const {firstName, lastName, email, password} = route.params.values;
+  const {firstName, lastName, email, password, userID, headers} =
+    route.params.values;
   const [otpCode, setOTPCode] = useState('');
   const [isPinReady, setIsPinReady] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -93,6 +94,41 @@ export default function ConfirmEmail({route, navigation}) {
       });
   }
 
+  async function updateProfile() {
+    setSubmitting(true);
+    await axios
+      .patch(
+        `${process.env.API_ENDPOINT}/user/update-profile/${userID}`,
+        {
+          otp: otpCode,
+          firstName,
+          lastName,
+          email,
+        },
+        {headers},
+      )
+      .then(response => {
+        setSubmitting(false);
+
+        if (response.data.status == 'Success') {
+          navigation.goBack();
+          showMyToast({
+            status: 'success',
+            title: 'Success',
+            description: response.data.message,
+          });
+        } else {
+          setSubmitting(false);
+
+          showMyToast({
+            status: 'error',
+            title: 'Failed',
+            description: response.data.message,
+          });
+        }
+      });
+  }
+
   return (
     <KeyboardAwareScrollView
       keyboardShouldPersistTaps="always"
@@ -115,40 +151,30 @@ export default function ConfirmEmail({route, navigation}) {
           setIsPinReady={setIsPinReady}
         />
 
-        <View style={{marginVertical: 40}}>
-          <PrimaryText>Haven't received the verification code ?</PrimaryText>
+        {!userID && (
+          <View style={{marginVertical: 40}}>
+            <PrimaryText>Haven't received the verification code ?</PrimaryText>
 
-          <TouchableOpacity onPress={resendCode}>
-            <SecondaryText
-              style={{
-                color: colors.orange,
-                textDecorationLine: 'underline',
-                textAlign: 'center',
-              }}>
-              Resend
-            </SecondaryText>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity onPress={resendCode}>
+              <SecondaryText
+                style={{
+                  color: colors.orange,
+                  textDecorationLine: 'underline',
+                  textAlign: 'center',
+                }}>
+                Resend
+              </SecondaryText>
+            </TouchableOpacity>
+          </View>
+        )}
 
         <PrimaryButton
           submitting={submitting}
           disabled={submitting}
-          onPress={handleBTNPressed}
+          onPress={!userID ? handleBTNPressed : updateProfile}
           title="Submit"
           style={{width: '100%'}}
         />
-        {/* <ButtonContainer
-          disabled={!isPinReady}
-          style={{
-            backgroundColor: !isPinReady ? 'grey' : colors.orange,
-          }}>
-          <ButtonText
-            style={{
-              color: !isPinReady ? 'black' : '#EEEEEE',
-            }}>
-            Login
-          </ButtonText>
-        </ButtonContainer> */}
       </View>
     </KeyboardAwareScrollView>
   );
