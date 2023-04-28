@@ -37,7 +37,6 @@ const {width} = Dimensions.get('window');
 
 import {
   GoogleSignin,
-  GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 
@@ -78,6 +77,7 @@ export default function Login({navigation, route}) {
         `${process.env.API_ENDPOINT}/user/login`,
         values,
       );
+      console.log(response.data);
 
       if (response.data.status == 'Success') {
         setSubmitting(false);
@@ -130,61 +130,76 @@ export default function Login({navigation, route}) {
       webClientId: process.env.WEB_CLIENT_ID,
       offlineAccess: true,
     });
-    await GoogleSignin.hasPlayServices()
-      .then(async hasPlayService => {
-        if (hasPlayService) {
-          await GoogleSignin.signIn()
-            .then(async userInfo => {
-              const data = {
-                given_name: userInfo.user.givenName,
-                family_name: userInfo.user.familyName,
-                picture: userInfo.user.photo,
-                email: userInfo.user.email,
-                idToken: userInfo.user.idToken,
-              };
 
-              console.log(data);
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      const data = {
+        given_name: userInfo.user.givenName,
+        family_name: userInfo.user.familyName,
+        picture: userInfo.user.photo,
+        email: userInfo.user.email,
+        idToken: userInfo.user.idToken,
+      };
 
-              await axios
-                .post(`${process.env.API_ENDPOINT}/user/google-login`, data)
-                .then(response => {
-                  console.log(response.data);
-                  setProcessingGoogleLogin(false);
+      // const response = await axios.post(
+      //   `${process.env.API_ENDPOINT}/user/google-login`,
+      //   data,
+      // );
 
-                  if (response.data.status == 'Success') {
-                    const {data} = response.data;
+      console.log(data);
 
-                    if (data.premium == 0) {
-                      navigation.navigate('AuthSubscription', {data});
-                    } else {
-                      storeCredentials({data});
-                    }
-                  } else {
-                    showMyToast({
-                      status: 'error',
-                      title: 'Failed',
-                      description: response.data.message,
-                    });
-                  }
-                })
-                .catch(err => {
-                  console.log(err);
-                  showMyToast({
-                    status: 'error',
-                    title: 'Failed',
-                    description: 'An error occured while logging in',
-                  });
-                });
-            })
-            .catch(e => {
-              console.log('ERROR IS: ' + JSON.stringify(e));
-            });
-        }
-      })
-      .catch(e => {
-        console.log('ERROR IS: ' + JSON.stringify(e));
-        setProcessingGoogleLogin(false);
-      });
+      console.log(response.data);
+      setProcessingGoogleLogin(false);
+
+      // if (response.data.status == 'Success') {
+      //   const {data} = response.data;
+
+      //   if (data.premium == 0) {
+      //     navigation.navigate('AuthSubscription', {data});
+      //   } else {
+      //     storeCredentials({data});
+      //   }
+      // } else {
+      //   showMyToast({
+      //     status: 'error',
+      //     title: 'Failed',
+      //     description: response.data.message,
+      //   });
+      // }
+    } catch (error) {
+      setProcessingGoogleLogin(false);
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+        showMyToast({
+          status: 'error',
+          title: 'Failed',
+          description: "You've cancelled google signin",
+        });
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+        showMyToast({
+          status: 'error',
+          title: 'Failed',
+          description: 'Signin in progress',
+        });
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+        showMyToast({
+          status: 'error',
+          title: 'Failed',
+          description: 'Google play serveices not available or outdated',
+        });
+      } else {
+        // some other error happened
+        showMyToast({
+          status: 'error',
+          title: 'Failed',
+          description:
+            'Something went wrong while trying to signin with google',
+        });
+      }
+    }
   }
 
   async function loginWithFacebook() {
@@ -251,6 +266,7 @@ export default function Login({navigation, route}) {
               value={values.email}
               keyboardType="email-address"
               style={styles.input}
+              autoCapitalize="none"
             />
 
             {errors.email && touched.email && (

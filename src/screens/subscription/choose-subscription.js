@@ -65,13 +65,14 @@ export default function ChooseSubscription({route, navigation}) {
 
   async function handlePaymentModal(period) {
     setPeriod(period);
-    setAmount(period == 'daily' ? 1 : 1);
+    setAmount(period == 'daily' ? 20 : 500);
+
     setShowPaymentModal(true);
   }
 
   async function makePayment() {
-    const amount = period == 'daily' ? 1 : 1;
-    const purpose = period == 'daily' ? 1 : 1;
+    const amount = period == 'daily' ? 20 : 500;
+    const purpose = period == 'daily' ? 1 : 2;
 
     if (!phoneNumber) {
       showMyToast({
@@ -229,6 +230,7 @@ export default function ChooseSubscription({route, navigation}) {
         showPaymentModal={showPaymentModal}
         setShowPaymentModal={setShowPaymentModal}
         phoneNumberError={phoneNumberError}
+        period={period}
       />
     </KeyboardAwareScrollView>
   );

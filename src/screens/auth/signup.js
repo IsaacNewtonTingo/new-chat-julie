@@ -166,6 +166,7 @@ export default function Signup({navigation}) {
               value={values.email}
               keyboardType="email-address"
               style={styles.input}
+              autocapitalize="none"
             />
 
             {errors.email && touched.email && (

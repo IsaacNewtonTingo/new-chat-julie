@@ -67,10 +67,6 @@ export default function Welcome({navigation}) {
   const renderItem = ({item}) => {
     return (
       <>
-        <Image
-          style={globalStyles.logoContainer}
-          source={require('../../assets/images/dfLogo.png')}
-        />
         <Image source={item.image} style={styles.image} />
 
         <View style={styles.lowerContainer}>
@@ -118,6 +114,10 @@ export default function Welcome({navigation}) {
 
   return (
     <View style={[globalStyles.container, {paddingBottom: 20}]}>
+      <Image
+        style={globalStyles.logoContainer}
+        source={require('../../assets/images/dfLogo.png')}
+      />
       <AppIntroSlider
         data={slides}
         onDone={onDone}

@@ -16,6 +16,8 @@ import SettingsList from '../../components/lists/settings-list';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MyToast from '../../components/toasts/my-toast';
 import axios from 'axios';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import LoadingScreen from '../../components/loading/page-loading';
 
 export default function Settings({navigation}) {
   const {storedCredentials, setStoredCredentials} =
@@ -25,6 +27,8 @@ export default function Settings({navigation}) {
   const token = storedCredentials.data.token;
 
   const [user, setUser] = useState({});
+
+  const [processing, setProcessing] = useState(false);
 
   const paymentSettings = [
     {
@@ -95,21 +99,33 @@ export default function Settings({navigation}) {
   }
 
   async function handleLogout() {
-    await EncryptedStorage.removeItem('userData')
-      .then(() => {
-        setStoredCredentials(null);
-      })
-      .catch(err => {
-        console.log(err);
-        showMyToast({
-          status: 'error',
-          title: 'Failed',
-          description: err.message,
-        });
+    try {
+      GoogleSignin.configure({
+        androidClientId: process.env.ANDROID_CLIENT_ID,
+        webClientId: process.env.WEB_CLIENT_ID,
+        offlineAccess: true,
       });
+
+      setProcessing(true);
+      const googleSignout = await GoogleSignin.signOut();
+      const clearStorage = await EncryptedStorage.removeItem('userData');
+      setStoredCredentials(null);
+
+      if (googleSignout && clearStorage) {
+        setProcessing(false);
+      }
+    } catch (error) {
+      console.log(error);
+      showMyToast({
+        status: 'error',
+        title: 'Failed',
+        description: error.message,
+      });
+    }
   }
   return (
     <View style={[globalStyles.container, {position: 'relative'}]}>
+      {processing && <LoadingScreen />}
       <TouchableOpacity
         // onPress={() => navigation.navigate('Profile', {user})}
         style={styles.userDetailsContainer}>

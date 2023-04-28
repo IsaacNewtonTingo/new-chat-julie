@@ -14,6 +14,7 @@ export default function PrimaryInput(props) {
     InputRightElement,
     InputLeftElement,
     editable,
+    autoCapitalize,
   } = props;
   return (
     <Input
@@ -32,6 +33,7 @@ export default function PrimaryInput(props) {
       InputRightElement={InputRightElement}
       InputLeftElement={InputLeftElement}
       style={[styles.textInput, style]}
+      autoCapitalize={autoCapitalize}
     />
   );
 }

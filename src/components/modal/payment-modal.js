@@ -25,6 +25,7 @@ export default function PaymentModal(props) {
     setPhoneNumber,
     amount,
     phoneNumberError,
+    period,
   } = props;
 
   return (
@@ -55,9 +56,9 @@ export default function PaymentModal(props) {
             textAlign: 'left',
             marginVertical: 20,
           }}>
-          You are about to make a payment of KSH. 100 for mothly subscription
-          plan. You will receive a reminder for next payment when the plan nears
-          expiry.
+          You are about to make a payment of KSH. {amount} for {period}{' '}
+          subscription plan. You will receive a reminder for next payment when
+          the plan nears expiry.
         </PrimaryText>
 
         <PrimaryText style={{color: colors.black, textAlign: 'left'}}>
