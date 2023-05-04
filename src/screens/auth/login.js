@@ -40,24 +40,22 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 
-import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
+import {
+  AccessToken,
+  LoginManager,
+  GraphRequest,
+  GraphRequestManager,
+} from 'react-native-fbsdk-next';
 import LoadingScreen from '../../components/loading/page-loading';
 
 export default function Login({navigation, route}) {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [showPass, setShowPass] = useState(false);
-  const {storedCredentials, setStoredCredentials} =
-    useContext(CredentialsContext);
-
-  const [loggedIn, setloggedIn] = useState(false);
-  const [userInfo, setuserInfo] = useState([]);
-
-  const [userName, setUserName] = useState('');
-  const [token, setToken] = useState('');
-  const [profilePic, setProfilePic] = useState('');
+  const {setStoredCredentials} = useContext(CredentialsContext);
 
   const [submitting, setSubmitting] = useState(false);
   const [processingGoogleLogin, setProcessingGoogleLogin] = useState(false);
+  const [processingFacebookLogin, setProcessingFacebookLogin] = useState(false);
 
   const loginValidationSchema = yup.object().shape({
     email: yup
@@ -200,29 +198,66 @@ export default function Login({navigation, route}) {
   }
 
   async function loginWithFacebook() {
-    await LoginManager.logInWithPermissions(['public_profile', 'email']).then(
-      async function (result) {
-        if (result.isCancelled) {
-          console.log('==> Login cancelled');
-        } else {
-          const data = await AccessToken.getCurrentAccessToken();
-          console.log(data);
-          console.log(
-            '==> Login success with permissions: ' +
-              result.grantedPermissions.toString(),
-          );
-        }
-      },
-      function (error) {
-        console.log('==> Login fail with error: ' + error);
-      },
-    );
+    try {
+      setProcessingFacebookLogin(true);
 
-    // showMyToast({
-    //   status: 'info',
-    //   title: 'Info',
-    //   description: 'Comming soon',
-    // });
+      const result = await LoginManager.logInWithPermissions([
+        'public_profile',
+        'email',
+      ]);
+      if (result.isCancelled) {
+        console.log('==> Login cancelled');
+      } else {
+        const data = await AccessToken.getCurrentAccessToken();
+        const infoRequest = new GraphRequest(
+          '/me?fields=id,name,email',
+          null,
+          async (error, result) => {
+            if (error) {
+              console.log('Error fetching data: ' + error.toString());
+              setProcessingFacebookLogin(false);
+            } else {
+              const data = {
+                firstName: result.name.split(' ')[0],
+                lastName: result.name.split(' ')[1],
+                email: result.email,
+                id: result.id,
+              };
+
+              const response = await axios.post(
+                `${process.env.API_ENDPOINT}/user/facebook-login`,
+                data,
+              );
+              if (response.data.status == 'Success') {
+                const {data} = response.data;
+                setProcessingFacebookLogin(false);
+                if (data.premium == 0) {
+                  navigation.navigate('AuthSubscription', {data});
+                } else {
+                  storeCredentials({data});
+                }
+              } else {
+                setProcessingFacebookLogin(false);
+                showMyToast({
+                  status: 'error',
+                  title: 'Failed',
+                  description: response.data.message,
+                });
+              }
+            }
+          },
+        );
+        new GraphRequestManager().addRequest(infoRequest).start();
+      }
+    } catch (error) {
+      console.log(error);
+      setProcessingFacebookLogin(false);
+      showMyToast({
+        status: 'error',
+        title: 'Failed',
+        description: error.message,
+      });
+    }
   }
 
   return (
