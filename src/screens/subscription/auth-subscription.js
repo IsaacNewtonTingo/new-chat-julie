@@ -138,43 +138,47 @@ export default function AuthSubscription({route, navigation}) {
         source={require('../../assets/images/dfLogo.png')}
       />
 
-      <PrimaryText style={{textAlign: 'center', fontSize: 25, marginTop: 20}}>
-        Premium User
-      </PrimaryText>
+      <View style={{alignItems: 'center', marginTop: 20}}>
+        <PrimaryText style={{textAlign: 'center', fontSize: 25}}>
+          Premium User
+        </PrimaryText>
+
+        <TouchableOpacity
+          onPress={storeCredentials}
+          style={styles.closeContainer}>
+          <PrimaryText
+            style={{textAlign: 'center', fontSize: 25, color: colors.gray}}>
+            X
+          </PrimaryText>
+        </TouchableOpacity>
+      </View>
 
       <View style={{marginVertical: 40}}>
         <View style={styles.tickAndText}>
           <Entypo name="check" color={colors.orange} size={20} />
           <PrimaryText style={styles.benefitText}>
-            <B>Unlimited</B> Questions & Users
+            Unlimited <B>Questions</B>
           </PrimaryText>
         </View>
 
         <View style={styles.tickAndText}>
           <Entypo name="check" color={colors.orange} size={20} />
           <PrimaryText style={styles.benefitText}>
-            Highly <B>Advanced</B> Models
+            Lightning Fast <B>Responses</B>
           </PrimaryText>
         </View>
 
         <View style={styles.tickAndText}>
           <Entypo name="check" color={colors.orange} size={20} />
           <PrimaryText style={styles.benefitText}>
-            <B>Unlock</B> All features
+            Unlimited<B> Chat History</B>
           </PrimaryText>
         </View>
 
         <View style={styles.tickAndText}>
           <Entypo name="check" color={colors.orange} size={20} />
           <PrimaryText style={styles.benefitText}>
-            <B>Unlimited</B> Voice Assistant
-          </PrimaryText>
-        </View>
-
-        <View style={styles.tickAndText}>
-          <Entypo name="check" color={colors.orange} size={20} />
-          <PrimaryText style={styles.benefitText}>
-            <B>Unlimited</B> Chat History
+            24/7 <B>Support</B>
           </PrimaryText>
         </View>
       </View>
@@ -261,5 +265,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.purple,
     padding: 5,
     borderRadius: 10,
+  },
+  closeContainer: {
+    position: 'absolute',
+    right: 0,
   },
 });

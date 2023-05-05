@@ -149,35 +149,28 @@ export default function ChooseSubscription({route, navigation}) {
         <View style={styles.tickAndText}>
           <Entypo name="check" color={colors.orange} size={20} />
           <PrimaryText style={styles.benefitText}>
-            <B>Unlimited</B> Questions & Users
+            Unlimited <B>Questions</B>
           </PrimaryText>
         </View>
 
         <View style={styles.tickAndText}>
           <Entypo name="check" color={colors.orange} size={20} />
           <PrimaryText style={styles.benefitText}>
-            Highly <B>Advanced</B> Models
+            Lightning Fast <B>Responses</B>
           </PrimaryText>
         </View>
 
         <View style={styles.tickAndText}>
           <Entypo name="check" color={colors.orange} size={20} />
           <PrimaryText style={styles.benefitText}>
-            <B>Unlock</B> All features
+            Unlimited<B> Chat History</B>
           </PrimaryText>
         </View>
 
         <View style={styles.tickAndText}>
           <Entypo name="check" color={colors.orange} size={20} />
           <PrimaryText style={styles.benefitText}>
-            <B>Unlimited</B> Voice Assistant
-          </PrimaryText>
-        </View>
-
-        <View style={styles.tickAndText}>
-          <Entypo name="check" color={colors.orange} size={20} />
-          <PrimaryText style={styles.benefitText}>
-            <B>Unlimited</B> Chat History
+            24/7 <B>Support</B>
           </PrimaryText>
         </View>
       </View>
