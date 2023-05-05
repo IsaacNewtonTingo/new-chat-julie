@@ -421,6 +421,10 @@ export default function Login({navigation, route}) {
       {processingGoogleLogin && (
         <LoadingScreen isOpen={processingGoogleLogin} />
       )}
+
+      {processingFacebookLogin && (
+        <LoadingScreen isOpen={processingFacebookLogin} />
+      )}
     </KeyboardAwareScrollView>
   );
 }

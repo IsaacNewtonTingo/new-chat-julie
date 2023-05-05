@@ -12,13 +12,17 @@ export default function ChatInput(props) {
     onBlur,
     handleBlur,
     InputRightElement,
+    InputLeftElement,
     onFocus,
+    isDisabled,
   } = props;
   return (
     <Input
       borderRadius={14}
+      // isDisabled={isDisabled}
       marginY={2}
-      minHeight={50}
+      height={50}
+      // maxHeight={100}
       width="85%"
       backgroundColor="white"
       name={name}
@@ -29,15 +33,18 @@ export default function ChatInput(props) {
       onBlur={onBlur}
       handleBlur={handleBlur}
       InputRightElement={InputRightElement}
+      InputLeftElement={InputLeftElement}
       multiline={true}
       style={[styles.textInput, style]}
       onFocus={onFocus}
+      opacity={1}
+      paddingLeft={4}
     />
   );
 }
 
 const styles = StyleSheet.create({
   textInput: {
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
   },
 });

@@ -1,23 +1,16 @@
 import {
-  Pressable,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
   Dimensions,
   FlatList,
   Image,
+  Animated,
 } from 'react-native';
 
-import React, {
-  useState,
-  useCallback,
-  useEffect,
-  useRef,
-  useContext,
-} from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 
-import UUID from 'react-native-uuid';
+import Voice from '@react-native-community/voice';
 
 import globalStyles from '../../assets/styles/global-styles';
 import ChatInput from '../../components/inputs/chat-input';
@@ -40,6 +33,7 @@ import SecondaryButton from '../../components/buttons/secondary-button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {CredentialsContext} from '../../context/credentials-context';
+import RecordingModal from '../../components/modal/recording';
 
 const {width, height} = Dimensions.get('window');
 
@@ -245,9 +239,10 @@ export default function Conversation({route, navigation}) {
 
   const [storedChatID, setStoredChatID] = useState('');
 
+  const [animation] = useState(new Animated.Value(0));
+
   useEffect(() => {
     getStoredCredentials();
-
     getChatTheme();
 
     return () => {
@@ -255,6 +250,8 @@ export default function Conversation({route, navigation}) {
       setChatName('');
       setCreatedNewChat(false);
       setMessage('');
+
+      Voice.destroy().then(Voice.removeAllListeners);
 
       setMessages([
         {
@@ -268,9 +265,16 @@ export default function Conversation({route, navigation}) {
 
       setMessagesToSend([]);
     };
-  }, [(navigation, loading)]);
+  }, [(navigation, loading), animation]);
 
   navigation.addListener('focus', () => setLoading(!loading));
+
+  const onSpeechResults = e => {
+    console.log('onSpeechResults: ', e);
+
+    setMessage(e.value[0]);
+    setRecording(false);
+  };
 
   async function getStoredCredentials() {
     if (storedCredentials) {
@@ -488,7 +492,26 @@ export default function Conversation({route, navigation}) {
     }
   }
 
-  async function handleRecord() {}
+  async function handleRecord() {
+    setMessage('');
+    setRecording(true);
+    try {
+      await Voice.start('en-GB');
+      Voice.onSpeechResults = onSpeechResults;
+    } catch (e) {
+      console.error(e);
+      setRecording(false);
+    }
+  }
+
+  async function stopRecording() {
+    setRecording(false);
+    try {
+      await Voice.stop();
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   return (
     <View
@@ -550,24 +573,22 @@ export default function Conversation({route, navigation}) {
           value={message}
           name="message"
           onChangeText={setMessage}
-          placeholder={
-            isRecording ? 'Recording in progress...' : 'Write something'
-          }
+          placeholder={isRecording ? 'Listening...' : 'Write something'}
           style={styles.input}
+          isDisabled={isRecording}
+          // InputLeftElement={
+          //   isRecording && <PulseIndicator color="red" size={40} />
+          // }
           InputRightElement={
             <View style={styles.recordingComponent}>
               <TouchableOpacity
                 style={globalStyles.iconRight}
-                onPress={() => handleRecord()}>
-                {!isRecording ? (
-                  <Ionicons
-                    name={isRecording ? 'mic' : 'ios-mic-outline'}
-                    size={30}
-                    color={isRecording ? 'red' : 'black'}
-                  />
-                ) : (
-                  <PulseIndicator color="red" size={30} />
-                )}
+                onPress={!isRecording ? handleRecord : stopRecording}>
+                <Ionicons
+                  name={isRecording ? 'mic' : 'ios-mic-outline'}
+                  size={30}
+                  color={isRecording ? 'red' : 'black'}
+                />
               </TouchableOpacity>
             </View>
           }
@@ -620,6 +641,14 @@ export default function Conversation({route, navigation}) {
           <BarIndicator color={colors.white} size={20} />
         </View>
       </Modal>
+
+      {isRecording && (
+        <RecordingModal
+          setRecording={setRecording}
+          stopRecording={stopRecording}
+          isOpen={isRecording}
+        />
+      )}
     </View>
   );
 }
@@ -670,4 +699,5 @@ const styles = StyleSheet.create({
     zIndex: 1,
     top: height / 2.5,
   },
+  input: {},
 });
