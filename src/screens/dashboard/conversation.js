@@ -251,7 +251,7 @@ export default function Conversation({route, navigation}) {
       setCreatedNewChat(false);
       setMessage('');
 
-      Voice.destroy().then(Voice.removeAllListeners);
+      // Voice.destroy().then(Voice.removeAllListeners);
 
       setMessages([
         {
@@ -274,6 +274,7 @@ export default function Conversation({route, navigation}) {
 
     setMessage(e.value[0]);
     setRecording(false);
+    sendMessage(e.value[0]);
   };
 
   async function getStoredCredentials() {
@@ -341,7 +342,7 @@ export default function Conversation({route, navigation}) {
     }
   }
 
-  async function sendMessage() {
+  async function sendMessage(message) {
     if (!message) {
       showMyToast({
         status: 'error',
@@ -594,7 +595,7 @@ export default function Conversation({route, navigation}) {
           }
         />
 
-        <TouchableOpacity onPress={sendMessage}>
+        <TouchableOpacity onPress={() => sendMessage(message)}>
           <Ionicons
             name="md-send-sharp"
             size={30}
