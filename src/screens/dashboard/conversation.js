@@ -239,11 +239,17 @@ export default function Conversation({route, navigation}) {
 
   const [storedChatID, setStoredChatID] = useState('');
 
-  const [animation] = useState(new Animated.Value(0));
-
   useEffect(() => {
     getStoredCredentials();
     getChatTheme();
+
+    Voice.onSpeechStart = onSpeechStart;
+    Voice.onSpeechRecognized = onSpeechRecognized;
+    Voice.onSpeechEnd = onSpeechEnd;
+    Voice.onSpeechError = onSpeechError;
+    Voice.onSpeechResults = onSpeechResults;
+    Voice.onSpeechPartialResults = onSpeechPartialResults;
+    Voice.onSpeechVolumeChanged = onSpeechVolumeChanged;
 
     return () => {
       setChatID('');
@@ -251,7 +257,7 @@ export default function Conversation({route, navigation}) {
       setCreatedNewChat(false);
       setMessage('');
 
-      // Voice.destroy().then(Voice.removeAllListeners);
+      Voice.destroy().then(Voice.removeAllListeners);
 
       setMessages([
         {
@@ -265,9 +271,39 @@ export default function Conversation({route, navigation}) {
 
       setMessagesToSend([]);
     };
-  }, [(navigation, loading), animation]);
+  }, [(navigation, loading)]);
 
   navigation.addListener('focus', () => setLoading(!loading));
+
+  const onSpeechStart = e => {
+    console.log('onSpeechStart: ', e);
+  };
+
+  const onSpeechRecognized = e => {
+    console.log('onSpeechRecognized: ', e);
+  };
+
+  const onSpeechEnd = e => {
+    console.log('onSpeechEnd: ', e);
+  };
+
+  const onSpeechError = e => {
+    console.log('onSpeechError: ', e);
+    showMyToast({
+      status: 'error',
+      title: 'Failed',
+      description:
+        'An error occured while processing speech. Please try again later',
+    });
+  };
+
+  const onSpeechPartialResults = e => {
+    console.log('onSpeechPartialResults: ', e);
+  };
+
+  const onSpeechVolumeChanged = e => {
+    console.log('onSpeechVolumeChanged: ', e);
+  };
 
   const onSpeechResults = e => {
     console.log('onSpeechResults: ', e);
@@ -412,7 +448,7 @@ export default function Conversation({route, navigation}) {
     flatListRef.current.scrollToEnd();
 
     const imageBody = {
-      prompt: message,
+      prompt: chatName,
       chatID,
       chatName,
       messageID,
@@ -422,7 +458,7 @@ export default function Conversation({route, navigation}) {
     const textBody = {
       messages: dataToSend,
       user: userID,
-      content: message,
+      content: chatName,
       messageID,
       chatID,
       chatName,
@@ -494,7 +530,6 @@ export default function Conversation({route, navigation}) {
   }
 
   async function handleRecord() {
-    setMessage('');
     setRecording(true);
     try {
       await Voice.start('en-GB');
@@ -509,6 +544,7 @@ export default function Conversation({route, navigation}) {
     setRecording(false);
     try {
       await Voice.stop();
+      Voice.onSpeechResults = onSpeechResults;
     } catch (e) {
       console.error(e);
     }
