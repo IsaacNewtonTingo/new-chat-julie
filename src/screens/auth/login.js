@@ -205,7 +205,13 @@ export default function Login({navigation, route}) {
         'email',
       ]);
       if (result.isCancelled) {
-        console.log('==> Login cancelled');
+        setProcessingFacebookLogin(false);
+
+        showMyToast({
+          status: 'error',
+          title: 'Failed',
+          description: 'You have canceled facebook login',
+        });
       } else {
         const data = await AccessToken.getCurrentAccessToken();
         const infoRequest = new GraphRequest(
@@ -214,6 +220,11 @@ export default function Login({navigation, route}) {
           async (error, result) => {
             if (error) {
               console.log('Error fetching data: ' + error.toString());
+              showMyToast({
+                status: 'error',
+                title: 'Failed',
+                description: 'Error fetching data: ' + error.toString(),
+              });
               setProcessingFacebookLogin(false);
             } else {
               const data = {
