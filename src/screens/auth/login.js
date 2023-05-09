@@ -190,8 +190,7 @@ export default function Login({navigation, route}) {
         showMyToast({
           status: 'error',
           title: 'Failed',
-          description:
-            'Something went wrong while trying to signin with google',
+          description: `Something went wrong while trying to signin with google: ${error.message}`,
         });
       }
     }

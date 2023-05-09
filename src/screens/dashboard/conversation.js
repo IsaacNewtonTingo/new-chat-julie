@@ -252,6 +252,7 @@ export default function Conversation({route, navigation}) {
     Voice.onSpeechVolumeChanged = onSpeechVolumeChanged;
 
     return () => {
+      console.log('Component has unmounted');
       setChatID('');
       setChatName('');
       setCreatedNewChat(false);
@@ -292,8 +293,7 @@ export default function Conversation({route, navigation}) {
     showMyToast({
       status: 'error',
       title: 'Failed',
-      description:
-        'An error occured while processing speech. Please try again later',
+      description: `An error occured while processing speech: ${e.error.message}`,
     });
   };
 
@@ -387,7 +387,7 @@ export default function Conversation({route, navigation}) {
       });
     } else {
       setAwaitingMessage(true);
-      flatListRef.current.scrollToEnd();
+      // flatListRef.current.scrollToEnd();
 
       const messageID = Math.floor(
         1000000000 + Math.random() * 9000000000,
