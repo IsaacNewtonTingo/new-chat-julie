@@ -252,7 +252,6 @@ export default function Conversation({route, navigation}) {
     Voice.onSpeechVolumeChanged = onSpeechVolumeChanged;
 
     return () => {
-      console.log('Component has unmounted');
       setChatID('');
       setChatName('');
       setCreatedNewChat(false);
