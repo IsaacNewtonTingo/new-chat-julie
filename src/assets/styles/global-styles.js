@@ -4,10 +4,12 @@ import colors from '../colors/colors';
 const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.dark,
+    backgroundColor: colors.background,
   },
   logoContainer: {
     alignSelf: 'center',
+    width: 70,
+    height: 100,
   },
   label: {
     textAlign: 'left',

@@ -6,7 +6,7 @@ import colors from '../../assets/colors/colors';
 import PrimaryText from '../texts/primary-text';
 
 export default function SecondaryButton(props) {
-  const {title, onPress, disabled, style, submitting} = props;
+  const {title, onPress, disabled, style, submitting, textStyle} = props;
 
   return (
     <TouchableOpacity
@@ -16,7 +16,7 @@ export default function SecondaryButton(props) {
       {submitting ? (
         <BallIndicator color={colors.dark} size={20} />
       ) : (
-        <PrimaryText>{title}</PrimaryText>
+        <PrimaryText style={textStyle}>{title}</PrimaryText>
       )}
     </TouchableOpacity>
   );

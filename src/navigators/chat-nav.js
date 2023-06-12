@@ -33,7 +33,7 @@ export default function ChatNav() {
         createdAt: new Date(),
         user: {
           userID: '1',
-          name: 'Chat julie',
+          name: 'Chatly',
           avatar: 'https://placeimg.com/140/140/any',
         },
       },
@@ -55,14 +55,14 @@ export default function ChatNav() {
         options={({route}) => ({
           headerTitle: () => (
             <PrimaryText style={{fontSize: 20}}>
-              {route.params?.title ? route.params.title : 'Chat Julie'}
+              {route.params?.title ? route.params.title : 'Chatly'}
             </PrimaryText>
           ),
 
           headerStyle: {
             backgroundColor:
               chatTheme == colors.theme1
-                ? colors.darkOrange
+                ? colors.white
                 : chatTheme == colors.theme2
                 ? colors.darkBlue
                 : colors.darkRed,

@@ -24,4 +24,10 @@ export default {
   theme1: '#F9A826',
   theme2: '#3066BE',
   theme3: '#DE3C4B',
+
+  background: '#EEFCFA',
+  heading: '#046D71',
+  myGray: '#707070',
+  otherGray: '#f2f2f2',
+  newRed: '#F1416C',
 };

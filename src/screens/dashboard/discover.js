@@ -110,6 +110,7 @@ export default function Discover({navigation}) {
   const discoverTab = () => {
     return (
       <FlatList
+        contextContainerStyle={{paddingTop: 20, alignItems: 'center'}}
         data={discoverItems}
         renderItem={({item}) => (
           <DiscoverItem
@@ -207,7 +208,7 @@ export default function Discover({navigation}) {
               <View style={styles.deleteModal}>
                 <Modal.CloseButton />
 
-                <SecondaryText style={{color: colors.black, fontSize: 20}}>
+                <SecondaryText style={{color: colors.heading, fontSize: 20}}>
                   Delete conversation?
                 </SecondaryText>
 
@@ -218,6 +219,7 @@ export default function Discover({navigation}) {
 
                 <View style={styles.modalFooter}>
                   <PrimaryButton
+                    style={{backgroundColor: '#F1416C'}}
                     submitting={submitting}
                     disabled={submitting}
                     onPress={deleteConversation}
@@ -240,13 +242,13 @@ export default function Discover({navigation}) {
       renderLabel={({route, focused, color}) => (
         <PrimaryText
           style={{
-            color: focused ? colors.white : colors.gray,
+            color: focused ? colors.heading : '#444444',
             margin: 8,
           }}>
           {route.title}
         </PrimaryText>
       )}
-      indicatorStyle={{backgroundColor: colors.orange}}
+      indicatorStyle={{backgroundColor: colors.heading}}
       style={{backgroundColor: colors.bar}}
     />
   );
@@ -275,7 +277,7 @@ const styles = StyleSheet.create({
   deleteModal: {
     height: 250,
     width: width - 40,
-    backgroundColor: colors.white,
+    backgroundColor: '#FFF5F8',
     padding: 20,
     borderRadius: 14,
     justifyContent: 'space-between',

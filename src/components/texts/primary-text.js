@@ -12,9 +12,10 @@ export default function PrimaryText(props) {
 
 const styles = StyleSheet.create({
   primaryText: {
-    color: 'white',
-    fontFamily: 'FuturaLT',
+    color: '#046D71',
+    fontFamily: 'Nunito-Regular',
     textAlign: 'center',
     fontSize: 16,
+    lineHeight: 26,
   },
 });

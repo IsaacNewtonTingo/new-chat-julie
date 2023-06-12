@@ -99,7 +99,7 @@ export default function Signup({navigation}) {
       style={globalStyles.container}>
       <Image
         style={globalStyles.logoContainer}
-        source={require('../../assets/images/dfLogo.png')}
+        source={require('../../assets/images/new-logo.png')}
       />
 
       <PrimaryText style={{fontSize: 20}}>Create account</PrimaryText>

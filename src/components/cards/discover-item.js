@@ -20,16 +20,16 @@ export default function DiscoverItem(props) {
     <TouchableOpacity onPress={onPress} style={styles.item}>
       <View style={styles.iconContainer}>
         {iconType == 'FontAwesome' ? (
-          <FontAwesome name={iconName} size={20} color={colors.black} />
+          <FontAwesome name={iconName} size={20} color={colors.heading} />
         ) : iconType == 'Ionicons' ? (
-          <Ionicons name={iconName} size={20} color={colors.black} />
+          <Ionicons name={iconName} size={20} color={colors.heading} />
         ) : iconType == 'Entypo' ? (
-          <Entypo name={iconName} size={20} color={colors.black} />
+          <Entypo name={iconName} size={20} color={colors.heading} />
         ) : iconType == 'MaterialCommunityIcons' ? (
           <MaterialCommunityIcons
             name={iconName}
             size={22}
-            color={colors.black}
+            color={colors.heading}
           />
         ) : (
           <></>
@@ -38,7 +38,9 @@ export default function DiscoverItem(props) {
 
       <View>
         <SecondaryText style={{textAlign: 'left'}}>{title}</SecondaryText>
-        <PrimaryText style={{textAlign: 'left'}}>{description}</PrimaryText>
+        <PrimaryText style={{textAlign: 'left', color: colors.otherGray}}>
+          {description}
+        </PrimaryText>
       </View>
     </TouchableOpacity>
   );
@@ -56,11 +58,12 @@ const styles = StyleSheet.create({
   },
   item: {
     flexDirection: 'row',
-    marginBottom: 10,
-    backgroundColor: colors.black,
+    marginTop: 10,
+    backgroundColor: colors.heading,
     padding: 20,
     alignItems: 'center',
     borderRadius: 10,
-    width: width,
+    width: width - 20,
+    alignSelf: 'center',
   },
 });

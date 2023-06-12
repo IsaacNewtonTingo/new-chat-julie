@@ -18,12 +18,12 @@ export default function History(props) {
         <MaterialCommunityIcons
           name="robot-outline"
           size={40}
-          color={colors.gray}
+          color={colors.heading}
         />
       </View>
 
       <View style={{flex: 1, padding: 10}}>
-        <PrimaryText style={{textAlign: 'left'}}>
+        <PrimaryText style={{textAlign: 'left', color: colors.white}}>
           {item.chatName.length <= 80
             ? item.chatName
             : item.chatName.slice(0, 79) + '...'}
@@ -49,12 +49,13 @@ const styles = StyleSheet.create({
   },
   item: {
     flexDirection: 'row',
-    marginBottom: 10,
-    backgroundColor: colors.black,
+    marginTop: 10,
+    backgroundColor: colors.heading,
     padding: 20,
     alignItems: 'center',
     borderRadius: 10,
-    width: width,
+    width: width - 20,
     justifyContent: 'space-between',
+    alignSelf: 'center',
   },
 });

@@ -16,7 +16,7 @@ export default function PrimaryButton(props) {
       {submitting ? (
         <BallIndicator color={colors.white} size={20} />
       ) : (
-        <PrimaryText>{title}</PrimaryText>
+        <PrimaryText style={{color: colors.white}}>{title}</PrimaryText>
       )}
     </TouchableOpacity>
   );
@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     width: '100%',
-    backgroundColor: colors.orange,
+    backgroundColor: colors.heading,
   },
 });

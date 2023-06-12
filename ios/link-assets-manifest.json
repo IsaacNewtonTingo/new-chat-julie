@@ -8,6 +8,26 @@
     {
       "path": "src/assets/fonts/FuturaLT.ttf",
       "sha1": "90cf3231e5a1ddde16a26e460199ffc5f3c5925a"
+    },
+    {
+      "path": "src/assets/fonts/Nunito-Light.ttf",
+      "sha1": "794c5e24d84a89ac9796eda2a4ba770f865598fc"
+    },
+    {
+      "path": "src/assets/fonts/Nunito-Medium.ttf",
+      "sha1": "036f3dbc6e6088809d1b2b7bcb0939988ad07bf8"
+    },
+    {
+      "path": "src/assets/fonts/Nunito-Regular.ttf",
+      "sha1": "466635ba024c43f741e320148a159557fd732ec0"
+    },
+    {
+      "path": "src/assets/fonts/Nunito-SemiBold.ttf",
+      "sha1": "b711d63c786e5a61d89f8918ab36925274bd591b"
+    },
+    {
+      "path": "src/assets/fonts/Nunuito-Bold.ttf",
+      "sha1": "9bac6650ac507968089985e02ba424a84b27ab12"
     }
   ]
 }

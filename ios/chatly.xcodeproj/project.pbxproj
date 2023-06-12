@@ -16,6 +16,11 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D5D40D74C27C467EBBA1E49D /* FuturaLT-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41051099F7074F47B753EA48 /* FuturaLT-Bold.ttf */; };
 		AA8CD09D692E40609AC08466 /* FuturaLT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F44967A496764F1193A197EC /* FuturaLT.ttf */; };
+		C862CCB9576740F5983CC474 /* Nunito-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E70CB59BF894997B11AA778 /* Nunito-Light.ttf */; };
+		D77D724F429040D19FC9D219 /* Nunito-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B187F8929A6044B98BA34B12 /* Nunito-Medium.ttf */; };
+		84256E0158ED4815BBC37EF1 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E61FA7F56BFA41F88024EE91 /* Nunito-Regular.ttf */; };
+		15320E582049495F9B900AB0 /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8742A7CA39F4601AF870FB6 /* Nunito-SemiBold.ttf */; };
+		A6B2D6A9A6FE4FA58C1599C0 /* Nunuito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 420D342E6C184E068CD93A7A /* Nunuito-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +53,11 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		41051099F7074F47B753EA48 /* FuturaLT-Bold.ttf */ = {isa = PBXFileReference; name = "FuturaLT-Bold.ttf"; path = "../src/assets/fonts/FuturaLT-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		F44967A496764F1193A197EC /* FuturaLT.ttf */ = {isa = PBXFileReference; name = "FuturaLT.ttf"; path = "../src/assets/fonts/FuturaLT.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5E70CB59BF894997B11AA778 /* Nunito-Light.ttf */ = {isa = PBXFileReference; name = "Nunito-Light.ttf"; path = "../src/assets/fonts/Nunito-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B187F8929A6044B98BA34B12 /* Nunito-Medium.ttf */ = {isa = PBXFileReference; name = "Nunito-Medium.ttf"; path = "../src/assets/fonts/Nunito-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E61FA7F56BFA41F88024EE91 /* Nunito-Regular.ttf */ = {isa = PBXFileReference; name = "Nunito-Regular.ttf"; path = "../src/assets/fonts/Nunito-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B8742A7CA39F4601AF870FB6 /* Nunito-SemiBold.ttf */ = {isa = PBXFileReference; name = "Nunito-SemiBold.ttf"; path = "../src/assets/fonts/Nunito-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		420D342E6C184E068CD93A7A /* Nunuito-Bold.ttf */ = {isa = PBXFileReference; name = "Nunuito-Bold.ttf"; path = "../src/assets/fonts/Nunuito-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +168,11 @@
 			children = (
 				41051099F7074F47B753EA48 /* FuturaLT-Bold.ttf */,
 				F44967A496764F1193A197EC /* FuturaLT.ttf */,
+				5E70CB59BF894997B11AA778 /* Nunito-Light.ttf */,
+				B187F8929A6044B98BA34B12 /* Nunito-Medium.ttf */,
+				E61FA7F56BFA41F88024EE91 /* Nunito-Regular.ttf */,
+				B8742A7CA39F4601AF870FB6 /* Nunito-SemiBold.ttf */,
+				420D342E6C184E068CD93A7A /* Nunuito-Bold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -261,6 +276,11 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				D5D40D74C27C467EBBA1E49D /* FuturaLT-Bold.ttf in Resources */,
 				AA8CD09D692E40609AC08466 /* FuturaLT.ttf in Resources */,
+				C862CCB9576740F5983CC474 /* Nunito-Light.ttf in Resources */,
+				D77D724F429040D19FC9D219 /* Nunito-Medium.ttf in Resources */,
+				84256E0158ED4815BBC37EF1 /* Nunito-Regular.ttf in Resources */,
+				15320E582049495F9B900AB0 /* Nunito-SemiBold.ttf in Resources */,
+				A6B2D6A9A6FE4FA58C1599C0 /* Nunuito-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,7 +525,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "chatly/Info.plist";
-             INFOPLIST_KEY_CFBundleDisplayName = "chatly";
+				INFOPLIST_KEY_CFBundleDisplayName = "chatly";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -531,7 +551,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = "chatly/Info.plist";
-             INFOPLIST_KEY_CFBundleDisplayName = "chatly";
+				INFOPLIST_KEY_CFBundleDisplayName = "chatly";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

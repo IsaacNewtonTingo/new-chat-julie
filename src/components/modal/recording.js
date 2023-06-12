@@ -74,7 +74,7 @@ export default function RecordingModal(props) {
             <Ionicons name="mic" size={30} color="red" />
           </Animated.View>
           <SecondaryText style={{textAlign: 'center', fontSize: 20}}>
-            Chat Julie is Listening
+            Chatly is Listening
             <DotIndicator color="white" size={5} style={{marginLeft: 10}} />
           </SecondaryText>
         </HStack>

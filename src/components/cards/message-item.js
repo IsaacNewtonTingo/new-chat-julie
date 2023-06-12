@@ -70,7 +70,7 @@ export default function MessageItem({item, submitting, user}) {
             style={styles.generatedImage}
           />
         ) : (
-          <PrimaryText style={{color: colors.black, textAlign: 'left'}}>
+          <PrimaryText style={{color: '#444444', textAlign: 'left'}}>
             {content?.trim()}
           </PrimaryText>
         )}

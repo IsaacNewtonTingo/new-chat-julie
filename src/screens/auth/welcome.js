@@ -13,6 +13,7 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 import PrimaryText from '../../components/texts/primary-text';
 import globalStyles from '../../assets/styles/global-styles';
 import PrimaryButton from '../../components/buttons/primary-button';
+import colors from '../../assets/colors/colors';
 
 const {width} = Dimensions.get('window');
 
@@ -43,22 +44,22 @@ const slides = [
   {
     key: 1,
     title: 'Welcome to',
-    text: 'Welcome to our digital factory OpenAI Chatbot',
-    image: require('../../assets/images/firstIMG.png'),
+    text: 'Welcome to Chatly',
+    image: require('../../assets/images/new-logo.png'),
     backgroundColor: '#59b2ab',
   },
   {
     key: 2,
     title: 'Discover',
-    text: 'Write emails, interview questions or code with Open AI Chatbot',
-    image: require('../../assets/images/secondIMG.png'),
+    text: 'From emails, interviews or business documents',
+    image: require('../../assets/images/new-logo.png'),
     backgroundColor: '#febe29',
   },
   {
     key: 3,
     title: 'Get started with',
-    text: 'Choose any character of your choice to get started!',
-    image: require('../../assets/images/3rdIMG.png'),
+    text: 'Get started with Chatly',
+    image: require('../../assets/images/new-logo.png'),
     backgroundColor: '#22bcb5',
   },
 ];
@@ -114,10 +115,6 @@ export default function Welcome({navigation}) {
 
   return (
     <View style={[globalStyles.container, {paddingBottom: 20}]}>
-      <Image
-        style={globalStyles.logoContainer}
-        source={require('../../assets/images/dfLogo.png')}
-      />
       <AppIntroSlider
         data={slides}
         onDone={onDone}
@@ -133,7 +130,7 @@ export default function Welcome({navigation}) {
 
       <PrimaryButton
         onPress={() => navigation.navigate('Login', {email: ''})}
-        style={{width: width - 40}}
+        style={{width: width - 40, backgroundColor: colors.heading}}
         title="Get started"
       />
     </View>
@@ -153,8 +150,8 @@ const styles = StyleSheet.create({
     textShadowRadius: 10,
   },
   image: {
-    width: 253,
-    height: 208,
+    width: width / 1.1,
+    height: width / 1.4,
     alignSelf: 'center',
     marginVertical: 40,
     resizeMode: 'contain',

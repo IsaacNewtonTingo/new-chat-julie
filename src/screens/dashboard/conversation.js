@@ -137,6 +137,7 @@ export default function Conversation({route, navigation}) {
 
       <SecondaryButton
         style={{marginTop: 20}}
+        textStyle={{color: colors.newRed}}
         title="Cancel"
         onPress={() => setThemesModal(false)}
       />
@@ -174,6 +175,7 @@ export default function Conversation({route, navigation}) {
 
       <SecondaryButton
         style={{marginTop: 20}}
+        textStyle={{color: colors.newRed}}
         title="Cancel"
         onPress={() => setThemesModal(false)}
       />
@@ -209,6 +211,7 @@ export default function Conversation({route, navigation}) {
 
       <SecondaryButton
         style={{marginTop: 20}}
+        textStyle={{color: colors.newRed}}
         title="Cancel"
         onPress={() => setThemesModal(false)}
       />

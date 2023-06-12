@@ -17,7 +17,7 @@ import {useState} from 'react';
 import axios from 'axios';
 
 const B = props => (
-  <PrimaryText style={{color: colors.orange}}>{props.children}</PrimaryText>
+  <PrimaryText style={{color: colors.myGray}}>{props.children}</PrimaryText>
 );
 
 export default function AuthSubscription({route, navigation}) {
@@ -135,7 +135,7 @@ export default function AuthSubscription({route, navigation}) {
     <KeyboardAwareScrollView style={[globalStyles.container, {padding: 20}]}>
       <Image
         style={globalStyles.logoContainer}
-        source={require('../../assets/images/dfLogo.png')}
+        source={require('../../assets/images/new-logo.png')}
       />
 
       <View style={{alignItems: 'center', marginTop: 20}}>
@@ -155,28 +155,28 @@ export default function AuthSubscription({route, navigation}) {
 
       <View style={{marginVertical: 40}}>
         <View style={styles.tickAndText}>
-          <Entypo name="check" color={colors.orange} size={20} />
+          <Entypo name="check" color={colors.heading} size={20} />
           <PrimaryText style={styles.benefitText}>
             Unlimited <B>Questions</B>
           </PrimaryText>
         </View>
 
         <View style={styles.tickAndText}>
-          <Entypo name="check" color={colors.orange} size={20} />
+          <Entypo name="check" color={colors.heading} size={20} />
           <PrimaryText style={styles.benefitText}>
             Lightning Fast <B>Responses</B>
           </PrimaryText>
         </View>
 
         <View style={styles.tickAndText}>
-          <Entypo name="check" color={colors.orange} size={20} />
+          <Entypo name="check" color={colors.heading} size={20} />
           <PrimaryText style={styles.benefitText}>
             Unlimited<B> Chat History</B>
           </PrimaryText>
         </View>
 
         <View style={styles.tickAndText}>
-          <Entypo name="check" color={colors.orange} size={20} />
+          <Entypo name="check" color={colors.heading} size={20} />
           <PrimaryText style={styles.benefitText}>
             24/7 <B>Support</B>
           </PrimaryText>
@@ -187,13 +187,13 @@ export default function AuthSubscription({route, navigation}) {
         onPress={() => handlePaymentModal('monthly')}
         style={[styles.monthlyBTN, styles.btn]}>
         <View>
-          <PrimaryText style={{color: colors.black}}>Monthly</PrimaryText>
+          <PrimaryText style={{color: colors.white}}>Monthly</PrimaryText>
           <View style={styles.saveContainer}>
             <PrimaryText style={{fontSize: 10}}>Save Ksh.120</PrimaryText>
           </View>
         </View>
 
-        <PrimaryText style={{color: colors.black}}>Ksh. 500.00</PrimaryText>
+        <PrimaryText style={{color: colors.white}}>Ksh. 500.00</PrimaryText>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -244,13 +244,12 @@ const styles = StyleSheet.create({
   },
   benefitText: {
     fontSize: 18,
-    marginTop: 10,
   },
   monthlyBTN: {
-    backgroundColor: colors.orange,
+    backgroundColor: colors.heading,
   },
   dailyBTN: {
-    backgroundColor: colors.darkPurple,
+    backgroundColor: colors.myGray,
   },
   btn: {
     flexDirection: 'row',
@@ -262,7 +261,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   saveContainer: {
-    backgroundColor: colors.purple,
+    backgroundColor: '#E8FFF3',
     padding: 5,
     borderRadius: 10,
   },

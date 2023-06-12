@@ -275,8 +275,8 @@ export default function Login({navigation, route}) {
       keyboardShouldPersistTaps="always"
       style={globalStyles.container}>
       <Image
-        style={globalStyles.logoContainer}
-        source={require('../../assets/images/dfLogo.png')}
+        style={[globalStyles.logoContainer, {marginVertical: 20}]}
+        source={require('../../assets/images/new-logo.png')}
       />
 
       <PrimaryText style={{fontSize: 20}}>Login to your account</PrimaryText>
@@ -367,7 +367,7 @@ export default function Login({navigation, route}) {
                   navigation.navigate('ForgotPassword', {email: ''})
                 }>
                 <PrimaryText
-                  style={[globalStyles.label, {color: colors.orange}]}>
+                  style={[globalStyles.label, {color: colors.myGray}]}>
                   Forgot password?
                 </PrimaryText>
               </TouchableOpacity>
@@ -419,7 +419,7 @@ export default function Login({navigation, route}) {
               <PrimaryText>Don't have an account ? </PrimaryText>
 
               <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-                <PrimaryText style={{color: colors.orange}}>
+                <PrimaryText style={{color: colors.myGray}}>
                   Signup here
                 </PrimaryText>
               </TouchableOpacity>
