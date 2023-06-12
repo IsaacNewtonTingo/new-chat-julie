@@ -14,7 +14,7 @@ export default function SettingsList(props) {
   const {iconType, iconName, title, route} = props.setting;
   return (
     <TouchableOpacity style={styles.item}>
-      <HStack space={5}>
+      <HStack space={5} alignItems="center">
         {iconType == 'MaterialIcons' ? (
           <MaterialIcons name={iconName} size={20} color={colors.gray} />
         ) : iconType == 'Foundation' ? (
@@ -24,7 +24,7 @@ export default function SettingsList(props) {
         ) : (
           ''
         )}
-        <PrimaryText>{title}</PrimaryText>
+        <PrimaryText style={{color: colors.white}}>{title}</PrimaryText>
       </HStack>
       <MaterialIcons
         name="keyboard-arrow-right"
@@ -40,10 +40,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: colors.black,
+    backgroundColor: colors.heading,
     padding: 10,
     height: 60,
-    borderBottomWidth: 0.1,
-    borderBottomColor: colors.gray,
   },
 });

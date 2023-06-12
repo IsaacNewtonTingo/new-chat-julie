@@ -15,7 +15,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const {width} = Dimensions.get('window');
 const B = props => (
-  <SecondaryText style={{color: colors.orange}}>{props.children}</SecondaryText>
+  <SecondaryText style={{color: colors.myGray}}>{props.children}</SecondaryText>
 );
 
 export default function ConfirmEmail({route, navigation}) {
@@ -134,48 +134,47 @@ export default function ConfirmEmail({route, navigation}) {
       keyboardShouldPersistTaps="always"
       style={styles.container}>
       <LoadingScreen isOpen={submitting} />
-      <View style={styles.miniContainer}>
-        <Image
-          style={styles.lock}
-          source={require('../../assets/images/mail2.png')}
-        />
 
-        <PrimaryText style={{marginVertical: 40, fontSize: 20}}>
-          An OTP has been sent to <B> "{email}"</B>.
-        </PrimaryText>
+      <Image
+        style={styles.lock}
+        source={require('../../assets/images/mail2.png')}
+      />
 
-        <OTPInput
-          code={otpCode}
-          setCode={setOTPCode}
-          maximumLength={maximumCodeLength}
-          setIsPinReady={setIsPinReady}
-        />
+      <PrimaryText style={{marginVertical: 40, fontSize: 20}}>
+        An OTP has been sent to <B> "{email}"</B>.
+      </PrimaryText>
 
-        {!userID && (
-          <View style={{marginVertical: 40}}>
-            <PrimaryText>Haven't received the verification code ?</PrimaryText>
+      <OTPInput
+        code={otpCode}
+        setCode={setOTPCode}
+        maximumLength={maximumCodeLength}
+        setIsPinReady={setIsPinReady}
+      />
 
-            <TouchableOpacity onPress={resendCode}>
-              <SecondaryText
-                style={{
-                  color: colors.orange,
-                  textDecorationLine: 'underline',
-                  textAlign: 'center',
-                }}>
-                Resend
-              </SecondaryText>
-            </TouchableOpacity>
-          </View>
-        )}
+      {!userID && (
+        <View style={{marginVertical: 40}}>
+          <PrimaryText>Haven't received the verification code ?</PrimaryText>
 
-        <PrimaryButton
-          submitting={submitting}
-          disabled={submitting}
-          onPress={!userID ? handleBTNPressed : updateProfile}
-          title="Submit"
-          style={{width: '100%'}}
-        />
-      </View>
+          <TouchableOpacity onPress={resendCode}>
+            <SecondaryText
+              style={{
+                color: colors.myGray,
+                textDecorationLine: 'underline',
+                textAlign: 'center',
+              }}>
+              Resend
+            </SecondaryText>
+          </TouchableOpacity>
+        </View>
+      )}
+
+      <PrimaryButton
+        submitting={submitting}
+        disabled={submitting}
+        onPress={!userID ? handleBTNPressed : updateProfile}
+        title="Submit"
+        style={{width: '100%'}}
+      />
     </KeyboardAwareScrollView>
   );
 }
@@ -183,7 +182,7 @@ export default function ConfirmEmail({route, navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.dark,
+    backgroundColor: colors.background,
     padding: 10,
   },
   miniContainer: {

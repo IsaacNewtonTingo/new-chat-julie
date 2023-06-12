@@ -199,19 +199,18 @@ export default function AuthSubscription({route, navigation}) {
       <TouchableOpacity
         onPress={() => handlePaymentModal('daily')}
         style={[styles.dailyBTN, styles.btn]}>
-        <PrimaryText>Daily</PrimaryText>
-        <PrimaryText>Ksh.20.00</PrimaryText>
+        <PrimaryText style={{color: colors.white}}>Daily</PrimaryText>
+        <PrimaryText style={{color: colors.white}}>Ksh.20.00</PrimaryText>
       </TouchableOpacity>
 
-      <View style={[globalStyles.spaceBetween, {marginVertical: 40}]}>
+      {/* <View style={[globalStyles.spaceBetween, {marginVertical: 40}]}>
         <PrimaryText>Privacy Policy</PrimaryText>
         <PrimaryText>Terms of Use</PrimaryText>
-      </View>
+      </View> */}
 
-      <PrimaryText style={{marginBottom: 40}}>
-        Your subscription will automatically renew unless cancelled 24 hours
-        before the end of current period. Manage your subscriptions in the
-        Account settings after purchase.
+      <PrimaryText
+        style={{marginBottom: 40, marginTop: 20, color: colors.myGray}}>
+        Your subscription will automatically renew after payment
       </PrimaryText>
 
       {data && (
@@ -256,13 +255,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderRadius: 14,
-    height: 65,
+    height: 70,
     paddingHorizontal: 20,
     marginTop: 20,
   },
   saveContainer: {
     backgroundColor: '#E8FFF3',
-    padding: 5,
+    paddingHorizontal: 5,
     borderRadius: 10,
   },
   closeContainer: {

@@ -17,7 +17,7 @@ import {useState} from 'react';
 import axios from 'axios';
 
 const B = props => (
-  <PrimaryText style={{color: colors.orange}}>{props.children}</PrimaryText>
+  <PrimaryText style={{color: colors.myGray}}>{props.children}</PrimaryText>
 );
 
 export default function ChooseSubscription({route, navigation}) {
@@ -138,7 +138,7 @@ export default function ChooseSubscription({route, navigation}) {
     <KeyboardAwareScrollView style={[globalStyles.container, {padding: 20}]}>
       <Image
         style={globalStyles.logoContainer}
-        source={require('../../assets/images/dfLogo.png')}
+        source={require('../../assets/images/new-logo.png')}
       />
 
       <PrimaryText style={{textAlign: 'center', fontSize: 25, marginTop: 20}}>
@@ -147,28 +147,28 @@ export default function ChooseSubscription({route, navigation}) {
 
       <View style={{marginVertical: 40}}>
         <View style={styles.tickAndText}>
-          <Entypo name="check" color={colors.orange} size={20} />
+          <Entypo name="check" color={colors.header} size={20} />
           <PrimaryText style={styles.benefitText}>
             Unlimited <B>Questions</B>
           </PrimaryText>
         </View>
 
         <View style={styles.tickAndText}>
-          <Entypo name="check" color={colors.orange} size={20} />
+          <Entypo name="check" color={colors.header} size={20} />
           <PrimaryText style={styles.benefitText}>
             Lightning Fast <B>Responses</B>
           </PrimaryText>
         </View>
 
         <View style={styles.tickAndText}>
-          <Entypo name="check" color={colors.orange} size={20} />
+          <Entypo name="check" color={colors.header} size={20} />
           <PrimaryText style={styles.benefitText}>
             Unlimited<B> Chat History</B>
           </PrimaryText>
         </View>
 
         <View style={styles.tickAndText}>
-          <Entypo name="check" color={colors.orange} size={20} />
+          <Entypo name="check" color={colors.header} size={20} />
           <PrimaryText style={styles.benefitText}>
             24/7 <B>Support</B>
           </PrimaryText>
@@ -179,31 +179,30 @@ export default function ChooseSubscription({route, navigation}) {
         onPress={() => handlePaymentModal('monthly')}
         style={[styles.monthlyBTN, styles.btn]}>
         <View>
-          <PrimaryText style={{color: colors.black}}>Monthly</PrimaryText>
+          <PrimaryText style={{color: colors.white}}>Monthly</PrimaryText>
           <View style={styles.saveContainer}>
             <PrimaryText style={{fontSize: 10}}>Save Ksh.120</PrimaryText>
           </View>
         </View>
 
-        <PrimaryText style={{color: colors.black}}>Ksh. 500.00</PrimaryText>
+        <PrimaryText style={{color: colors.white}}>Ksh. 500.00</PrimaryText>
       </TouchableOpacity>
 
       <TouchableOpacity
         onPress={() => handlePaymentModal('daily')}
         style={[styles.dailyBTN, styles.btn]}>
-        <PrimaryText>Daily</PrimaryText>
-        <PrimaryText>Ksh.20.00</PrimaryText>
+        <PrimaryText style={{color: colors.white}}>Daily</PrimaryText>
+        <PrimaryText style={{color: colors.white}}>Ksh.20.00</PrimaryText>
       </TouchableOpacity>
 
-      <View style={[globalStyles.spaceBetween, {marginVertical: 40}]}>
+      {/* <View style={[globalStyles.spaceBetween, {marginVertical: 40}]}>
         <PrimaryText>Privacy Policy</PrimaryText>
         <PrimaryText>Terms of Use</PrimaryText>
-      </View>
+      </View> */}
 
-      <PrimaryText style={{marginBottom: 40}}>
-        Your subscription will automatically renew unless cancelled 24 hours
-        before the end of current period. Manage your subscriptions in the
-        Account settings after purchase.
+      <PrimaryText
+        style={{marginBottom: 40, marginTop: 20, color: colors.myGray}}>
+        Your subscription will automatically renew after payment
       </PrimaryText>
 
       {data && (
@@ -236,26 +235,25 @@ const styles = StyleSheet.create({
   },
   benefitText: {
     fontSize: 18,
-    marginTop: 10,
   },
   monthlyBTN: {
-    backgroundColor: colors.orange,
+    backgroundColor: colors.heading,
   },
   dailyBTN: {
-    backgroundColor: colors.darkPurple,
+    backgroundColor: colors.myGray,
   },
   btn: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     borderRadius: 14,
-    height: 65,
+    height: 70,
     paddingHorizontal: 20,
     marginTop: 20,
   },
   saveContainer: {
-    backgroundColor: colors.purple,
-    padding: 5,
+    backgroundColor: '#E8FFF3',
+    paddingHorizontal: 5,
     borderRadius: 10,
   },
 });

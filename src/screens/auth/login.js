@@ -335,7 +335,7 @@ export default function Login({navigation, route}) {
                     <FontAwesome
                       name={showPass ? 'eye' : 'eye-slash'}
                       size={20}
-                      color="black"
+                      color={colors.heading}
                     />
                   </Pressable>
                 }

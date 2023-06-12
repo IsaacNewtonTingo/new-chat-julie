@@ -22,7 +22,7 @@ export default function AuthNav() {
           initialRouteName=""
           screenOptions={{
             headerStyle: {
-              backgroundColor: colors.black,
+              backgroundColor: colors.heading,
             },
             headerTintColor: colors.white,
             headerTitleAlign: 'center',

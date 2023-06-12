@@ -87,7 +87,7 @@ export default function ForgotPassword({route, navigation}) {
               source={require('../../assets/images/mail.png')}
             />
             <PrimaryText style={{fontSize: 20, marginVertical: 40}}>
-              Please nter your email address to recieve a verification code
+              Please enter your email address to recieve a verification code
             </PrimaryText>
 
             <PrimaryText style={globalStyles.label}>Email</PrimaryText>
@@ -127,5 +127,6 @@ const styles = StyleSheet.create({
     width: width / 2.5,
     height: width / 2.5,
     alignSelf: 'center',
+    marginTop: 20,
   },
 });

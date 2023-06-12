@@ -20,7 +20,7 @@ export default function HomeStack() {
       {({}) => (
         <Stack.Navigator
           screenOptions={{
-            headerTintColor: colors.white,
+            headerTintColor: colors.heading,
             headerTitleAlign: 'center',
           }}>
           <Stack.Screen
@@ -42,7 +42,7 @@ export default function HomeStack() {
               headerStyle: {
                 backgroundColor:
                   chatTheme == colors.theme1
-                    ? colors.darkOrange
+                    ? colors.white
                     : chatTheme == colors.theme2
                     ? colors.darkBlue
                     : colors.darkRed,

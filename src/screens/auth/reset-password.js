@@ -32,7 +32,7 @@ import SecondaryText from '../../components/texts/secondary-text';
 const {width} = Dimensions.get('window');
 
 const B = props => (
-  <SecondaryText style={{color: colors.orange}}>{props.children}</SecondaryText>
+  <SecondaryText style={{color: colors.myGray}}>{props.children}</SecondaryText>
 );
 
 export default function ResetPassword({route, navigation}) {
@@ -135,7 +135,7 @@ export default function ResetPassword({route, navigation}) {
               source={require('../../assets/images/lock.png')}
             />
             <PrimaryText style={{fontSize: 20, marginBottom: 40}}>
-              Please nter the verification code sent to{' '}
+              Please enter the verification code sent to{' '}
               <B>{route.params.email}</B>
             </PrimaryText>
 

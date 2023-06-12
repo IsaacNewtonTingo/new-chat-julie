@@ -125,7 +125,10 @@ export default function Welcome({navigation}) {
         renderNextButton={renderNextButton}
         renderPrevButton={renderPrevButton}
         renderSkipButton={renderSkipButton}
-        dotStyle={{backgroundColor: 'gray'}}
+        dotStyle={{borderWidth: 1, borderColor: colors.heading}}
+        activeDotStyle={{
+          backgroundColor: colors.heading,
+        }}
       />
 
       <PrimaryButton

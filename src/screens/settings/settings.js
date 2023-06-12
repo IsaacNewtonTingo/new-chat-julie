@@ -143,7 +143,7 @@ export default function Settings({navigation}) {
           </View>
 
           <View style={styles.right}>
-            <PrimaryText style={{textAlign: 'left'}}>
+            <PrimaryText style={{textAlign: 'left', color: colors.white}}>
               {user.firstName} {user.lastName}
             </PrimaryText>
             <PrimaryText style={{textAlign: 'left', color: colors.gray}}>
@@ -153,22 +153,22 @@ export default function Settings({navigation}) {
         </HStack>
       </TouchableOpacity>
 
-      <View style={{marginTop: 20}}>
+      <View>
         {paymentSettings.map((setting, i) => (
           <SettingsList key={i} setting={setting} />
         ))}
       </View>
 
-      <View style={{marginTop: 20}}>
+      <View>
         {setSettings.map((setting, i) => (
           <SettingsList key={i} setting={setting} />
         ))}
       </View>
 
       <TouchableOpacity onPress={handleLogout} style={styles.logoutBTN}>
-        <HStack space={5}>
+        <HStack space={5} alignItems="center">
           <Entypo name="log-out" size={20} color={colors.gray} />
-          <PrimaryText>Signout</PrimaryText>
+          <PrimaryText style={{color: colors.white}}>Signout</PrimaryText>
         </HStack>
 
         <MaterialIcons
@@ -193,12 +193,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   userDetailsContainer: {
-    backgroundColor: colors.black,
+    backgroundColor: colors.heading,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 20,
-    borderRadius: 14,
   },
   right: {
     marginLeft: 20,
@@ -212,9 +211,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: colors.black,
+    backgroundColor: colors.heading,
     padding: 10,
-    marginTop: 20,
+    marginTop: 1,
     height: 60,
   },
 });

@@ -191,7 +191,7 @@ export default function Signup({navigation}) {
                   <FontAwesome
                     name={showPass ? 'eye' : 'eye-slash'}
                     size={20}
-                    color="black"
+                    color={colors.heading}
                   />
                 </Pressable>
               }
@@ -220,7 +220,7 @@ export default function Signup({navigation}) {
                   <FontAwesome
                     name={showConfirmPass ? 'eye' : 'eye-slash'}
                     size={20}
-                    color="black"
+                    color={colors.heading}
                   />
                 </Pressable>
               }
@@ -248,7 +248,7 @@ export default function Signup({navigation}) {
 
                   <TouchableOpacity>
                     <PrimaryText
-                      style={[globalStyles.label, {color: colors.orange}]}>
+                      style={[globalStyles.label, {color: colors.myGray}]}>
                       terms and conditions
                     </PrimaryText>
                   </TouchableOpacity>
@@ -268,7 +268,7 @@ export default function Signup({navigation}) {
               <PrimaryText>Already have an account ? </PrimaryText>
 
               <TouchableOpacity onPress={() => navigation.goBack()}>
-                <PrimaryText style={{color: colors.orange}}>
+                <PrimaryText style={{color: colors.myGray}}>
                   Login here
                 </PrimaryText>
               </TouchableOpacity>
