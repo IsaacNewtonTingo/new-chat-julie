@@ -96,6 +96,8 @@ export default function Login({navigation, route}) {
         });
       }
     } catch (error) {
+      setSubmitting(false);
+
       console.log(error);
       showMyToast({
         status: 'error',

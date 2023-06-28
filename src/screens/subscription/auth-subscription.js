@@ -188,20 +188,20 @@ export default function AuthSubscription({route, navigation}) {
         style={[styles.monthlyBTN, styles.btn]}>
         <View>
           <PrimaryText style={{color: colors.white}}>Monthly</PrimaryText>
-          <View style={styles.saveContainer}>
+          {/* <View style={styles.saveContainer}>
             <PrimaryText style={{fontSize: 10}}>Save Ksh.120</PrimaryText>
-          </View>
+          </View> */}
         </View>
 
         <PrimaryText style={{color: colors.white}}>Ksh. 500.00</PrimaryText>
       </TouchableOpacity>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => handlePaymentModal('daily')}
         style={[styles.dailyBTN, styles.btn]}>
         <PrimaryText style={{color: colors.white}}>Daily</PrimaryText>
         <PrimaryText style={{color: colors.white}}>Ksh.20.00</PrimaryText>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       {/* <View style={[globalStyles.spaceBetween, {marginVertical: 40}]}>
         <PrimaryText>Privacy Policy</PrimaryText>
