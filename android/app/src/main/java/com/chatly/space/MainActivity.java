@@ -1,4 +1,4 @@
-package com.chatly;
+package com.chatly.space;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

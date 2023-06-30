@@ -1,4 +1,4 @@
-package com.chatly.newarchitecture;
+package com.chatly.space.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.chatly.BuildConfig;
-import com.chatly.newarchitecture.components.MainComponentsRegistry;
-import com.chatly.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.chatly.space.BuildConfig;
+import com.chatly.space.newarchitecture.components.MainComponentsRegistry;
+import com.chatly.space.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
