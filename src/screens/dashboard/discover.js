@@ -90,8 +90,8 @@ export default function Discover({navigation}) {
     {
       iconType: 'MaterialCommunityIcons',
       iconName: 'code-not-equal-variant',
-      title: 'Developer category',
-      description: 'Generate or manipulate code',
+      title: 'Academic research',
+      description: 'Get your academic answers',
     },
     {
       iconType: 'Entypo',

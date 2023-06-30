@@ -1,4 +1,4 @@
-package com.chatjulie.newarchitecture.components;
+package com.chatly.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
